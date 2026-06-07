@@ -167,10 +167,15 @@ html,body{width:100%;height:100%;background:var(--dark);color:#fff;font-family:'
     <div class="intro-title">God's <span>Draft</span> Day</div>
     <div class="intro-sub">The Almighty Front Office · Draft Night</div>
     <div class="crew-row" id="crew-row"></div>
-    <div class="join-info">
-      <div class="join-label">Join on your phone</div>
-      <div class="join-url" id="join-url">Loading...</div>
-      <div class="player-count" id="player-count-intro">0 players connected</div>
+    <div style="display:flex;gap:24px;align-items:center;justify-content:center;margin-bottom:32px">
+      <div class="join-info" style="margin-bottom:0">
+        <div class="join-label">Join on your phone</div>
+        <div class="join-url" id="join-url">Loading...</div>
+        <div class="player-count" id="player-count-intro">0 players connected</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.95);padding:12px;border-radius:12px;border:3px solid var(--gold)">
+        <canvas id="qr-canvas" width="140" height="140"></canvas>
+      </div>
     </div>
   </div>
 </div>
@@ -224,6 +229,7 @@ html,body{width:100%;height:100%;background:var(--dark);color:#fff;font-family:'
     <div class="hc-scenario bbc" id="hc-scenario">Intro</div>
   </div>
   <div class="hc-right" id="hc-buttons"></div>
+  <button class="btn btn-outline" onclick="restartGame()" style="margin-left:12px;font-size:13px;padding:8px 16px;opacity:0.5">↺ Restart</button>
 </div>
 
 <script src="assets.js"></script>
@@ -497,7 +503,30 @@ window.addEventListener('load', () => {
   buildCrewRow();
   buildScenario();
   updateControls();
+  generateQR('https://' + url);
 });
+
+function generateQR(url) {
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+  script.onload = () => {
+    const div = document.createElement('div');
+    const canvas = document.getElementById('qr-canvas');
+    canvas.style.display = 'none';
+    canvas.parentNode.appendChild(div);
+    new QRCode(div, { text: url, width: 140, height: 140, colorDark:'#000000', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M });
+  };
+  document.head.appendChild(script);
+}
+
+function restartGame() {
+  scenarioIdx = 0;
+  votes = {0:0,1:0};
+  totalVotes = 0;
+  ws.send(JSON.stringify({ type:'host_advance', screen:'intro', scenarioIdx:0 }));
+  buildScenario();
+  showScreen('s-intro');
+}
 
 // ── CREW ──────────────────────────────────────────────────────
 function buildCrewRow() {
@@ -725,6 +754,7 @@ function updateControls() {
 
   const map = {
     'intro':     `<button class="btn btn-gold" onclick="advance('scenario')">Start Draft</button>`,
+    'yourturn':  `<button class="btn btn-outline" onclick="restartGame()">Restart Game</button>`,
     'scenario':  `<button class="btn btn-gold" onclick="advance('voting')">Open Voting</button>`,
     'voting':    `<button class="btn btn-red" onclick="advance('results')">Close Voting</button>`,
     'results':   `<button class="btn btn-gold" onclick="advance('reveal')">Reveal God's Pick</button>`,
