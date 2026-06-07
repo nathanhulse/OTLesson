@@ -2,790 +2,652 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<!-- v5 BUILD: 2026-06-07 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>God's Draft Day — Host</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Barlow:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#C9A84C;--gold2:#F0D080;--dark:#06080f;--navy:#0a1628;}
+:root{--gold:#C9A84C;--gold2:#F0D080;--dark:#06080f;--navy:#0a1628}
 html,body{width:100%;height:100%;background:var(--dark);color:#fff;font-family:'Barlow',sans-serif;overflow:hidden}
 .bbn{font-family:'Bebas Neue',cursive}
 .bbc{font-family:'Barlow Condensed',sans-serif}
-
-/* ── SCREENS ── */
 .screen{display:none;width:100vw;height:100vh;position:absolute;top:0;left:0}
 .screen.active{display:flex;flex-direction:column}
 
-/* ── INTRO SCREEN ── */
-#s-intro{background:var(--dark);align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
-#s-intro::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a2d4e 0%,var(--dark) 70%)}
-.intro-content{position:relative;z-index:2;max-width:900px;padding:40px}
-.intro-live{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:4px;color:var(--gold);opacity:0.7;text-transform:uppercase;margin-bottom:16px}
-.intro-title{font-family:'Bebas Neue',cursive;font-size:clamp(60px,10vw,120px);letter-spacing:6px;color:var(--gold);line-height:0.9;margin-bottom:8px}
+/* ── INTRO ── */
+#s-intro{background:var(--dark);align-items:center;justify-content:center;text-align:center;overflow:hidden;position:relative}
+#s-intro::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a2d4e 0%,var(--dark) 70%);pointer-events:none}
+.intro-content{position:relative;z-index:2;width:100%;padding:20px 40px}
+.intro-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:5px;color:rgba(201,168,76,0.65);text-transform:uppercase;margin-bottom:6px}
+.intro-title{font-family:'Bebas Neue',cursive;font-size:clamp(90px,14vw,160px);letter-spacing:6px;color:var(--gold);line-height:0.88;margin-bottom:6px}
 .intro-title span{color:#fff}
-.intro-sub{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:40px}
-.crew-row{display:flex;gap:20px;justify-content:center;margin-bottom:40px}
+.intro-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.5vw,28px);font-weight:700;letter-spacing:5px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:24px}
+.crew-row{display:flex;gap:32px;justify-content:center;margin-bottom:24px}
 .crew-card{text-align:center}
-.crew-img{width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid var(--gold);background:#1a2535}
-.crew-name{font-family:'Bebas Neue',cursive;font-size:16px;letter-spacing:2px;color:var(--gold);margin-top:8px}
-.crew-role{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:1px}
-.join-info{background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.4);border-radius:16px;padding:20px 40px;display:inline-block;margin-bottom:32px}
-.join-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase;margin-bottom:6px}
-.join-url{font-family:'Bebas Neue',cursive;font-size:36px;letter-spacing:3px;color:var(--gold)}
-.player-count{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,0.5);margin-top:8px;letter-spacing:1px}
+.crew-img{width:130px;height:130px;border-radius:50%;object-fit:cover;object-position:top;border:4px solid var(--gold)}
+.crew-name{font-family:'Bebas Neue',cursive;font-size:20px;letter-spacing:2px;color:var(--gold);margin-top:8px}
+.crew-role{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(255,255,255,0.3);letter-spacing:1px}
+.join-qr-row{display:flex;gap:28px;align-items:center;justify-content:center}
+.join-info{background:rgba(201,168,76,0.1);border:2px solid rgba(201,168,76,0.4);border-radius:18px;padding:20px 44px;text-align:center}
+.join-label{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-bottom:6px}
+.join-url{font-family:'Bebas Neue',cursive;font-size:clamp(32px,5vw,52px);letter-spacing:3px;color:var(--gold)}
+.player-count{font-family:'Barlow Condensed',sans-serif;font-size:17px;color:rgba(255,255,255,0.4);margin-top:8px;letter-spacing:1px}
+.qr-wrap{background:rgba(255,255,255,0.95);padding:14px;border-radius:14px;border:4px solid var(--gold)}
 
-/* ── SCENARIO SCREEN ── */
-#s-scenario{background:var(--dark);justify-content:center;align-items:center;padding:40px}
-.scenario-stage{width:100%;max-width:1100px;margin:0 auto;display:flex;gap:48px;align-items:center}
-.sc-logo-wrap{flex-shrink:0;text-align:center}
-.sc-logo{width:200px;height:200px;object-fit:contain}
-.sc-logo-name{font-family:'Bebas Neue',cursive;font-size:22px;letter-spacing:3px;color:var(--gold);margin-top:12px}
-.sc-logo-city{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase}
-.sc-content{flex:1}
-.sc-round{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;color:rgba(201,168,76,0.6);text-transform:uppercase;margin-bottom:8px}
-.sc-name{font-family:'Bebas Neue',cursive;font-size:clamp(36px,5vw,64px);letter-spacing:3px;color:#fff;line-height:1;margin-bottom:8px}
-.sc-need-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:8px}
-.sc-need{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2vw,22px);font-weight:600;color:rgba(255,255,255,0.85);line-height:1.5;max-width:600px;margin-bottom:20px}
-.sc-record{display:inline-block;font-family:'Bebas Neue',cursive;font-size:18px;letter-spacing:2px;padding:6px 18px;border-radius:6px;border:1px solid}
+/* ── SCENARIO ── */
+#s-scenario{background:var(--dark);padding:0 0 70px 0;overflow:hidden}
+.sc-outer{display:flex;height:100%;align-items:stretch}
+.sc-logo-panel{width:340px;flex-shrink:0;background:rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center}
+.sc-logo{width:260px;height:260px;object-fit:contain;margin-bottom:16px}
+.sc-logo-name{font-family:'Bebas Neue',cursive;font-size:32px;letter-spacing:3px;color:var(--gold);line-height:1;margin-bottom:6px}
+.sc-logo-city{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase}
+.sc-record{display:inline-block;font-family:'Bebas Neue',cursive;font-size:22px;letter-spacing:2px;padding:8px 22px;border-radius:8px;border:2px solid;margin-top:16px}
+.sc-content-panel{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 60px}
+.sc-round{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:5px;color:rgba(201,168,76,0.6);text-transform:uppercase;margin-bottom:12px}
+.sc-name{font-family:'Bebas Neue',cursive;font-size:clamp(56px,7vw,96px);letter-spacing:3px;color:#fff;line-height:0.95;margin-bottom:16px}
+.sc-need-lbl{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:8px}
+.sc-need{font-family:'Barlow Condensed',sans-serif;font-size:clamp(22px,2.8vw,32px);font-weight:600;color:rgba(255,255,255,0.85);line-height:1.45;margin-bottom:16px}
+.sc-note{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2vw,22px);font-style:italic;color:rgba(255,255,255,0.3);margin-top:12px}
+.twist-pill{display:inline-block;background:#7f1d1d;color:#fff;font-family:'Bebas Neue',cursive;font-size:16px;letter-spacing:3px;padding:6px 18px;border-radius:6px;margin-bottom:12px}
 
-/* ── VOTING SCREEN ── */
-#s-voting{background:var(--dark);padding:24px 32px}
-.voting-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
-.voting-round{font-family:'Bebas Neue',cursive;font-size:18px;letter-spacing:3px;color:var(--gold)}
-.voting-status{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.4);text-transform:uppercase}
-.vote-count-live{font-family:'Bebas Neue',cursive;font-size:28px;color:var(--gold)}
+/* ── VOTING ── */
+#s-voting{background:var(--dark);padding:0 0 70px 0}
+.voting-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.voting-round{font-family:'Bebas Neue',cursive;font-size:24px;letter-spacing:3px;color:var(--gold)}
+.vote-count-block{text-align:center}
+.vote-count-live{font-family:'Bebas Neue',cursive;font-size:56px;color:var(--gold);line-height:1}
+.vote-count-lbl{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.25);text-transform:uppercase}
+.voting-status-lbl{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.35);text-transform:uppercase}
+.cards-stage{display:grid;grid-template-columns:1fr 1fr;gap:0;flex:1;overflow:hidden;border-top:1px solid rgba(255,255,255,0.06)}
+.cards-stage.single{grid-template-columns:1fr;max-width:700px;margin:0 auto;width:100%}
 
-.cards-stage{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1;max-width:1100px;margin:0 auto;width:100%}
-.big-card{border-radius:20px;overflow:hidden;background:#0d1927;border:2px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;position:relative;transition:border-color 0.3s}
-.big-card.leading{border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,0.2)}
-.bc-stripe{height:6px}
-.bc-body{padding:16px 20px;display:flex;gap:16px;align-items:flex-start;flex:1}
-.bc-img{width:130px;height:160px;object-fit:cover;object-position:top;border-radius:12px;flex-shrink:0;background:#1a2535;border:2px solid rgba(255,255,255,0.1)}
-.bc-info{flex:1}
-.bc-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px}
-.bc-name{font-family:'Bebas Neue',cursive;font-size:clamp(22px,3vw,36px);letter-spacing:2px;color:#fff;line-height:1;margin-bottom:2px}
-.bc-nick{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-style:italic;color:rgba(255,255,255,0.4);margin-bottom:10px}
-.bc-vitals{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.vital{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);text-transform:uppercase}
-.bc-from{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:10px}
-.bc-ovr{position:absolute;top:14px;right:18px;text-align:center}
-.ovr-n{font-family:'Bebas Neue',cursive;font-size:52px;line-height:1}
-.ovr-l{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.2);text-transform:uppercase}
-
-/* stat bars */
-.bc-bars{padding:10px 20px 14px}
+/* BIG CARD - full height split layout */
+.big-card{display:flex;flex-direction:row;overflow:hidden;background:#0a1420;position:relative;border-right:1px solid rgba(255,255,255,0.07);transition:background 0.3s}
+.big-card:last-child{border-right:none}
+.big-card.leading{background:#0d1d35}
+.bc-img-col{width:240px;flex-shrink:0;position:relative;overflow:hidden}
+.bc-img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.bc-stripe-left{position:absolute;top:0;left:0;width:6px;height:100%}
+.bc-data-col{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:16px 20px 12px}
+.bc-top-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.bc-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,0.25);text-transform:uppercase}
+.bc-ovr-block{text-align:center}
+.ovr-n{font-family:'Bebas Neue',cursive;font-size:clamp(52px,5.5vw,72px);line-height:1}
+.ovr-l{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.2);text-transform:uppercase}
+.bc-name{font-family:'Bebas Neue',cursive;font-size:clamp(28px,3.5vw,46px);letter-spacing:2px;color:#fff;line-height:1;margin-bottom:3px}
+.bc-nick{font-family:'Barlow Condensed',sans-serif;font-size:clamp(14px,1.6vw,18px);font-style:italic;color:rgba(255,255,255,0.38);margin-bottom:10px}
+.bc-vitals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.vital{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:4px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);text-transform:uppercase}
+.bc-from{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(255,255,255,0.28);margin-bottom:12px}
+.bc-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);margin:0 -20px;flex-shrink:0}
+.s-c{background:#0a1420;padding:8px 6px;text-align:center}
+.s-v{font-family:'Bebas Neue',cursive;font-size:22px;color:#fff;line-height:1}
+.s-l{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-top:1px}
+.bc-bars{padding:10px 0;flex:1}
 .br{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.bl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.4);width:72px;flex-shrink:0}
-.bt{flex:1;height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
-.bf{height:100%;border-radius:3px;transition:width 0.6s}
-.bn{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);width:22px;text-align:right}
-
-/* vote bar */
-.vote-bar-wrap{padding:10px 20px 16px;border-top:1px solid rgba(255,255,255,0.06)}
-.vote-pct{font-family:'Bebas Neue',cursive;font-size:42px;color:var(--gold);line-height:1}
-.vote-pct-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase}
-.vote-bar-bg{height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;margin-top:6px}
+.bl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.38);width:80px;flex-shrink:0}
+.bt{flex:1;height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.bf{height:100%;border-radius:3px}
+.bn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);width:24px;text-align:right}
+.bc-scout{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.4vw,16px);font-style:italic;color:rgba(255,255,255,0.42);line-height:1.4;flex-shrink:0;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;margin-top:8px}
+.vote-bar-section{flex-shrink:0;border-top:1px solid rgba(255,255,255,0.08);padding:10px 20px 14px;margin:0 -20px -12px}
+.vote-pct{font-family:'Bebas Neue',cursive;font-size:52px;color:var(--gold);line-height:1}
+.vote-pct-lbl{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.22);text-transform:uppercase}
+.vote-bar-bg{height:8px;background:rgba(255,255,255,0.07);border-radius:4px;overflow:hidden;margin-top:5px}
 .vote-bar-fill{height:100%;border-radius:4px;transition:width 0.4s;background:var(--gold)}
 
-/* ── RESULTS SCREEN ── */
-#s-results{background:var(--dark);padding:24px 32px;justify-content:center}
-.results-inner{max-width:1100px;width:100%;margin:0 auto}
-.results-title{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:4px;color:rgba(255,255,255,0.3);text-align:center;margin-bottom:20px}
-.results-bars{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
-.res-candidate{text-align:center}
-.res-name{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:2px;color:#fff;margin-bottom:8px}
-.res-pct{font-family:'Bebas Neue',cursive;font-size:80px;line-height:1;margin-bottom:6px}
-.res-bar-bg{height:12px;background:rgba(255,255,255,0.08);border-radius:6px;overflow:hidden;margin:0 20px 8px}
-.res-bar-fill{height:100%;border-radius:6px;transition:width 0.8s cubic-bezier(0.34,1.56,0.64,1)}
-.res-count{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,0.4);letter-spacing:1px}
+/* ── RESULTS ── */
+#s-results{background:var(--dark);padding:0 0 70px 0}
+.results-hdr{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:5px;color:rgba(255,255,255,0.2);text-align:center;padding:16px;flex-shrink:0}
+.results-main{display:grid;grid-template-columns:1fr 1fr;flex:1;gap:0}
+.res-candidate{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 32px;border-right:1px solid rgba(255,255,255,0.07)}
+.res-candidate:last-child{border-right:none}
+.res-img{width:180px;height:220px;object-fit:cover;object-position:top;border-radius:14px;margin-bottom:14px;border:3px solid rgba(255,255,255,0.1)}
+.res-name{font-family:'Bebas Neue',cursive;font-size:clamp(24px,3.5vw,42px);letter-spacing:2px;color:#fff;margin-bottom:6px;text-align:center}
+.res-pct{font-family:'Bebas Neue',cursive;font-size:clamp(80px,10vw,120px);line-height:1;margin-bottom:6px}
+.res-bar-bg{height:14px;background:rgba(255,255,255,0.07);border-radius:7px;overflow:hidden;width:100%;margin-bottom:8px}
+.res-bar-fill{height:100%;border-radius:7px;transition:width 0.8s cubic-bezier(0.34,1.56,0.64,1)}
+.res-count{font-family:'Barlow Condensed',sans-serif;font-size:18px;color:rgba(255,255,255,0.3)}
+.announcer-panel{background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.07);padding:20px 32px;flex-shrink:0}
+.ann-inner{display:flex;align-items:flex-start;gap:18px}
+.ann-photo{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid var(--gold);flex-shrink:0}
+.ann-right{flex:1}
+.ann-name-row{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.ann-name{font-family:'Bebas Neue',cursive;font-size:26px;letter-spacing:2px;color:var(--gold)}
+.ann-role{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(255,255,255,0.25)}
+.ann-quote{font-family:'Barlow Condensed',sans-serif;font-size:clamp(17px,2vw,24px);font-style:italic;color:rgba(255,255,255,0.85);line-height:1.45;padding:12px 18px;background:rgba(255,255,255,0.04);border-radius:10px;border-left:4px solid var(--gold)}
+.ann-extras{display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
+.ann-extra-pill{font-family:'Barlow Condensed',sans-serif;font-size:clamp(14px,1.6vw,18px);font-style:italic;color:rgba(255,255,255,0.6);padding:8px 14px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid rgba(255,255,255,0.15);flex:1;min-width:0}
 
-/* announcer */
-.announcer-box{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px 24px;margin-bottom:20px}
-.ann-who-row{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.ann-photo{width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--gold)}
-.ann-name{font-family:'Bebas Neue',cursive;font-size:20px;letter-spacing:2px;color:var(--gold)}
-.ann-role{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:1px}
-.ann-quote{font-family:'Barlow Condensed',sans-serif;font-size:clamp(15px,2vw,20px);font-style:italic;color:rgba(255,255,255,0.8);line-height:1.5;padding:14px 18px;background:rgba(255,255,255,0.04);border-radius:10px;border-left:4px solid var(--gold)}
-
-/* ── REVEAL SCREEN ── */
-#s-reveal{background:linear-gradient(135deg,#06080f 0%,#0e1f3a 50%,#06080f 100%);justify-content:center;align-items:center;text-align:center;padding:32px}
-.reveal-inner{max-width:900px;width:100%}
-.rev-commissioner{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:4px;color:rgba(201,168,76,0.5);text-transform:uppercase;margin-bottom:12px}
-.rev-pick-num{font-family:'Bebas Neue',cursive;font-size:clamp(60px,10vw,100px);color:var(--gold);line-height:1;margin-bottom:8px}
-.rev-player-name{font-family:'Bebas Neue',cursive;font-size:clamp(28px,5vw,52px);letter-spacing:3px;color:#fff;margin-bottom:16px}
-.rev-img{width:180px;height:220px;object-fit:cover;object-position:top;border-radius:16px;border:4px solid var(--gold);margin:0 auto 20px;display:block;background:#1a2535}
-.rev-why{font-size:clamp(14px,1.8vw,18px);line-height:1.7;color:rgba(255,255,255,0.75);max-width:700px;margin:0 auto 16px}
+/* ── REVEAL ── */
+#s-reveal{background:linear-gradient(160deg,#06080f,#0e1f3a);justify-content:center;align-items:center;text-align:center;padding:24px 40px 80px;overflow:hidden}
+.reveal-inner{max-width:1200px;width:100%}
+.rev-comm{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:5px;color:rgba(201,168,76,0.45);text-transform:uppercase;margin-bottom:8px}
+.rev-pick-num{font-family:'Bebas Neue',cursive;font-size:clamp(64px,9vw,110px);color:var(--gold);line-height:1;margin-bottom:10px}
+.rev-imgs-row{display:flex;gap:28px;justify-content:center;margin-bottom:18px}
+.rev-img{width:220px;height:270px;object-fit:cover;object-position:top;border-radius:18px;border:4px solid var(--gold);background:#1a2535;flex-shrink:0}
+.rev-player-name{font-family:'Bebas Neue',cursive;font-size:clamp(36px,5.5vw,64px);letter-spacing:3px;color:#fff;margin-bottom:16px}
+.rev-why{font-size:clamp(18px,2.2vw,24px);line-height:1.65;color:rgba(255,255,255,0.78);max-width:900px;margin:0 auto 16px}
 .rev-why b{color:var(--gold2)}
-.rev-quip{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2vw,22px);font-weight:700;font-style:italic;color:var(--gold);padding:14px 20px;background:rgba(201,168,76,0.08);border-radius:10px;border-left:4px solid var(--gold);display:inline-block;max-width:700px}
+.rev-quip{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;font-style:italic;color:var(--gold);padding:16px 28px;background:rgba(201,168,76,0.08);border-radius:12px;border-left:5px solid var(--gold);display:inline-block;max-width:900px}
 
-/* ── SCRIPTURE SCREEN ── */
-#s-scripture{background:var(--dark);justify-content:center;align-items:center;text-align:center;padding:40px}
-.scripture-inner{max-width:800px}
-.sc-icon{font-size:48px;margin-bottom:16px;opacity:0.6}
-.scripture-lbl{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:16px}
-.scripture-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,3vw,32px);font-style:italic;color:#fff;line-height:1.55;margin-bottom:12px}
-.scripture-ref{font-family:'Bebas Neue',cursive;font-size:20px;letter-spacing:3px;color:var(--gold);margin-bottom:32px}
-.next-up{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(255,255,255,0.3);letter-spacing:2px;text-transform:uppercase}
-
-/* ── HOST CONTROLS ── */
-.host-controls{position:fixed;bottom:0;left:0;right:0;background:rgba(6,8,15,0.95);border-top:1px solid rgba(201,168,76,0.3);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;z-index:999}
-.hc-left{display:flex;align-items:center;gap:12px}
-.hc-players{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px}
-.hc-scenario{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--gold);font-weight:700;letter-spacing:1px}
-.hc-right{display:flex;gap:10px}
-.btn{font-family:'Bebas Neue',cursive;font-size:16px;letter-spacing:2px;padding:10px 24px;border-radius:8px;cursor:pointer;border:none;transition:all 0.2s}
-.btn-gold{background:var(--gold);color:#06080f}
-.btn-gold:hover{background:var(--gold2)}
-.btn-outline{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.4)}
-.btn-outline:hover{background:rgba(201,168,76,0.1)}
-.btn-red{background:#7f1d1d;color:#fff;border:1px solid #ef4444}
-.btn-red:hover{background:#991b1b}
-.btn:disabled{opacity:0.3;cursor:not-allowed}
-
-/* ── RUTH SPECIAL ── */
-.ruth-stage{width:100%;max-width:1000px;margin:0 auto;text-align:center;padding:20px}
-.ruth-q{font-family:'Bebas Neue',cursive;font-size:clamp(28px,5vw,56px);letter-spacing:3px;color:#fff;margin-bottom:16px;line-height:1}
-.ruth-p{font-family:'Barlow Condensed',sans-serif;font-size:clamp(15px,2vw,20px);color:rgba(255,255,255,0.6);line-height:1.6;max-width:600px;margin:0 auto 24px}
-.ruth-verse{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--gold);padding:20px 32px;background:rgba(201,168,76,0.08);border-radius:12px;border-left:6px solid var(--gold);text-align:left;max-width:700px;margin:0 auto 24px}
-
-/* ── TWIST BADGE ── */
-.twist-pill{display:inline-block;background:#7f1d1d;color:#fff;font-family:'Bebas Neue',cursive;font-size:13px;letter-spacing:3px;padding:4px 14px;border-radius:6px;margin-bottom:12px}
+/* ── SCRIPTURE ── */
+#s-scripture{background:var(--dark);justify-content:center;align-items:center;text-align:center;padding:40px 80px 80px}
+.scripture-inner{max-width:1000px;width:100%}
+.sc-icon{font-size:64px;margin-bottom:18px;opacity:0.45}
+.sc-lbl{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:5px;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:18px}
+.sc-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,3.5vw,44px);font-style:italic;color:#fff;line-height:1.5;margin-bottom:14px}
+.sc-ref{font-family:'Bebas Neue',cursive;font-size:28px;letter-spacing:3px;color:var(--gold);margin-bottom:36px}
+.sc-next{font-family:'Barlow Condensed',sans-serif;font-size:18px;color:rgba(255,255,255,0.2);letter-spacing:2px;text-transform:uppercase}
 
 /* ── DISCUSSION ── */
-#s-discuss{background:var(--dark);justify-content:center;align-items:center;padding:48px}
-.discuss-inner{max-width:800px;width:100%;text-align:center}
-.discuss-title{font-family:'Bebas Neue',cursive;font-size:40px;letter-spacing:4px;color:var(--gold);margin-bottom:32px}
-.discuss-q{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.5vw,26px);color:rgba(255,255,255,0.8);line-height:1.6;padding:18px 24px;background:rgba(255,255,255,0.03);border-radius:10px;border-left:4px solid var(--gold);text-align:left;margin-bottom:14px}
+#s-discuss{background:var(--dark);justify-content:center;align-items:center;padding:48px 100px 80px}
+.discuss-inner{max-width:1000px;width:100%;text-align:center}
+.discuss-title{font-family:'Bebas Neue',cursive;font-size:56px;letter-spacing:4px;color:var(--gold);margin-bottom:28px}
+.discuss-q{font-family:'Barlow Condensed',sans-serif;font-size:clamp(20px,2.8vw,30px);color:rgba(255,255,255,0.82);line-height:1.5;padding:20px 28px;background:rgba(255,255,255,0.03);border-radius:12px;border-left:5px solid var(--gold);text-align:left;margin-bottom:16px}
+
+/* ── FINALE ── */
+#s-finale{background:linear-gradient(160deg,#06080f,#0e1f3a);justify-content:center;align-items:center;text-align:center;padding:32px 80px 80px;overflow:hidden}
+.finale-inner{max-width:1000px;width:100%}
+.finale-title{font-family:'Bebas Neue',cursive;font-size:clamp(56px,8vw,96px);letter-spacing:5px;color:var(--gold);line-height:1;margin-bottom:8px}
+.finale-sub{font-family:'Barlow Condensed',sans-serif;font-size:20px;letter-spacing:4px;color:rgba(255,255,255,0.28);text-transform:uppercase;margin-bottom:28px}
+.finale-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:24px}
+.fs{background:rgba(255,255,255,0.04);border-radius:10px;padding:14px 6px;text-align:center}
+.fs-v{font-family:'Bebas Neue',cursive;font-size:36px;color:rgba(255,255,255,0.15);line-height:1}
+.fs-l{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-top:2px}
+.finale-qs{display:flex;flex-direction:column;gap:12px}
+.finale-q{font-size:clamp(17px,2.2vw,22px);color:rgba(255,255,255,0.7);line-height:1.55;padding:16px 22px;background:rgba(255,255,255,0.04);border-radius:12px;border-left:4px solid var(--gold);text-align:left}
+
+/* ── RUTH SPECIAL ── */
+.ruth-outer{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 80px}
+.ruth-inner{max-width:1000px;width:100%;text-align:center}
+.ruth-q{font-family:'Bebas Neue',cursive;font-size:clamp(44px,6vw,76px);letter-spacing:3px;color:#fff;margin-bottom:14px;line-height:1}
+.ruth-p{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,2.4vw,26px);color:rgba(255,255,255,0.58);line-height:1.6;max-width:680px;margin:0 auto 24px}
+.ruth-verse{font-family:'Barlow Condensed',sans-serif;font-size:clamp(22px,3vw,32px);font-style:italic;color:var(--gold);padding:24px 40px;background:rgba(201,168,76,0.08);border-radius:14px;border-left:7px solid var(--gold);text-align:left;max-width:800px;margin:0 auto}
+
+/* ── CONTROLS ── */
+.host-controls{position:fixed;bottom:0;left:0;right:0;background:rgba(6,8,15,0.97);border-top:1px solid rgba(201,168,76,0.25);padding:10px 28px;display:flex;align-items:center;justify-content:space-between;z-index:999}
+.hc-left{display:flex;align-items:center;gap:16px}
+.hc-players{font-family:'Barlow Condensed',sans-serif;font-size:15px;color:rgba(255,255,255,0.35);letter-spacing:1px}
+.hc-scenario{font-family:'Barlow Condensed',sans-serif;font-size:15px;color:var(--gold);font-weight:700}
+.hc-right{display:flex;gap:10px;align-items:center}
+.btn{font-family:'Bebas Neue',cursive;font-size:19px;letter-spacing:2px;padding:11px 30px;border-radius:8px;cursor:pointer;border:none;transition:all 0.2s}
+.btn-gold{background:var(--gold);color:#06080f}.btn-gold:hover{background:var(--gold2)}
+.btn-outline{background:transparent;color:var(--gold);border:1px solid rgba(201,168,76,0.4)}.btn-outline:hover{background:rgba(201,168,76,0.1)}
+.btn-red{background:#7f1d1d;color:#fff;border:1px solid #ef4444}.btn-red:hover{background:#991b1b}
+.btn-sm{font-size:14px;padding:8px 18px;background:transparent;color:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.15)}.btn-sm:hover{color:rgba(255,255,255,0.6)}
 </style>
 </head>
 <body>
 
-<!-- INTRO -->
 <div class="screen active" id="s-intro">
   <div class="intro-content">
-    <div class="intro-live">Inside the NBA · Special Edition</div>
-    <div class="intro-title">God's <span>Draft</span> Day</div>
-    <div class="intro-sub">The Almighty Front Office · Draft Night</div>
+    <div class="intro-eyebrow bbc">Inside the NBA · Special Edition</div>
+    <div class="intro-title bbn">God's <span>Draft</span> Day</div>
+    <div class="intro-sub bbc">The Almighty Front Office · Draft Night</div>
     <div class="crew-row" id="crew-row"></div>
-    <div style="display:flex;gap:24px;align-items:center;justify-content:center;margin-bottom:32px">
-      <div class="join-info" style="margin-bottom:0">
-        <div class="join-label">Join on your phone</div>
-        <div class="join-url" id="join-url">Loading...</div>
-        <div class="player-count" id="player-count-intro">0 players connected</div>
+    <div class="join-qr-row">
+      <div class="join-info">
+        <div class="join-label bbc">Join on your phone</div>
+        <div class="join-url bbn" id="join-url">Loading...</div>
+        <div class="player-count bbc" id="player-count-intro">0 players connected</div>
       </div>
-      <div style="background:rgba(255,255,255,0.95);padding:12px;border-radius:12px;border:3px solid var(--gold)">
-        <canvas id="qr-canvas" width="140" height="140"></canvas>
-      </div>
+      <div class="qr-wrap" id="qr-wrap"></div>
     </div>
   </div>
 </div>
 
-<!-- SCENARIO -->
 <div class="screen" id="s-scenario">
-  <div class="scenario-stage" id="scenario-stage"></div>
+  <div class="sc-outer">
+    <div class="sc-logo-panel" id="sc-logo-panel"></div>
+    <div class="sc-content-panel" id="sc-content-panel"></div>
+  </div>
 </div>
 
-<!-- VOTING -->
 <div class="screen" id="s-voting">
-  <div class="voting-top">
+  <div class="voting-hdr">
     <div class="voting-round bbn" id="voting-round"></div>
-    <div style="text-align:center">
+    <div class="vote-count-block">
       <div class="vote-count-live bbn" id="vote-live-count">0</div>
-      <div class="voting-status bbc">votes in</div>
+      <div class="vote-count-lbl bbc">votes in</div>
     </div>
-    <div class="voting-status bbc" id="voting-status">Voting Open</div>
+    <div class="voting-status-lbl bbc">Voting Open</div>
   </div>
   <div class="cards-stage" id="cards-stage"></div>
 </div>
 
-<!-- RESULTS -->
 <div class="screen" id="s-results">
-  <div class="results-inner">
-    <div class="results-title bbn">The Room Has Spoken</div>
-    <div class="results-bars" id="results-bars"></div>
-    <div class="announcer-box" id="announcer-box"></div>
-  </div>
+  <div class="results-hdr bbn">The Room Has Spoken</div>
+  <div class="results-main" id="results-main"></div>
+  <div class="announcer-panel" id="announcer-panel"></div>
 </div>
 
-<!-- REVEAL -->
 <div class="screen" id="s-reveal">
   <div class="reveal-inner" id="reveal-inner"></div>
 </div>
 
-<!-- SCRIPTURE -->
 <div class="screen" id="s-scripture">
   <div class="scripture-inner" id="scripture-inner"></div>
 </div>
 
-<!-- DISCUSSION -->
 <div class="screen" id="s-discuss">
   <div class="discuss-inner" id="discuss-inner"></div>
 </div>
 
-<!-- HOST CONTROLS -->
+<div class="screen" id="s-finale">
+  <div class="finale-inner">
+    <div class="finale-title bbn">Your Turn</div>
+    <div class="finale-sub bbc">The Draft Board Is Open</div>
+    <div class="finale-stats">
+      <div class="fs"><div class="fs-v bbn">?</div><div class="fs-l bbc">Credentials</div></div>
+      <div class="fs"><div class="fs-v bbn">?</div><div class="fs-l bbc">Network</div></div>
+      <div class="fs"><div class="fs-v bbn">?</div><div class="fs-l bbc">Influence</div></div>
+      <div class="fs"><div class="fs-v bbn">?</div><div class="fs-l bbc">Faith</div></div>
+      <div class="fs"><div class="fs-v bbn">?</div><div class="fs-l bbc">Availability</div></div>
+      <div class="fs"><div class="fs-v bbn">?</div><div class="fs-l bbc">Willingness</div></div>
+    </div>
+    <div class="finale-qs" id="finale-qs"></div>
+  </div>
+</div>
+
 <div class="host-controls">
   <div class="hc-left">
     <div class="hc-players bbc" id="hc-players">0 players</div>
     <div class="hc-scenario bbc" id="hc-scenario">Intro</div>
   </div>
   <div class="hc-right" id="hc-buttons"></div>
-  <button class="btn btn-outline" onclick="restartGame()" style="margin-left:12px;font-size:13px;padding:8px 16px;opacity:0.5">↺ Restart</button>
+  <button class="btn btn-sm bbn" onclick="restartGame()">&#8635; Restart</button>
 </div>
 
 <script src="assets.js"></script>
 <script>
-// ── SCENARIOS DATA ──────────────────────────────────────────────
-const SCENARIOS = [
-  {
-    id:'egypt', logo:'logo_egypt', name:'Egypt Lakers', city:'Memphis, Egypt',
-    c1:'#552583', c2:'#FDB927', round:'Round 1 of 9',
-    rec:'Dynasty — 400 Yrs', recC:'#ef4444',
-    need:"God's front office needs a floor general to go head-to-head with Pharaoh and liberate an enslaved nation. Market knowledge essential. Must project authority under pressure.",
-    note:"The twist: God isn't drafting from outside Egypt. He's recruiting from within the most powerful franchise on Earth.",
-    players:[
-      { img:'p_princeMoses', name:'Prince "Ram" Moses', nick:'"The Palace Prospect"', pos:'PG', ht:"6'2\"", wt:'195 lbs', from:'Palace of Egypt · Elite Academy', yr:'Age 40',
-        ovr:94, ovrC:'#22c55e',
-        stats:[{l:'CONN',v:'99'},{l:'ACCESS',v:'97'},{l:'SPEECH',v:'91'},{l:'CLOUT',v:'96'}],
-        bars:[{l:'Network',v:99,c:'#22c55e'},{l:'Palace Acc',v:97,c:'#22c55e'},{l:'Humility',v:11,c:'#ef4444'},{l:'Faith',v:24,c:'#ef4444'},{l:'Patience',v:18,c:'#ef4444'}],
-        scout:"Generational credentials. Palace-raised, Pharaoh-trained. Speaks the language, knows the culture. If you're building a liberation movement, this is your guy.",
-        gp:false, stripe:'#552583' },
-      { img:'p_shepherdMo', name:'Shepherd Mo', nick:'"Wrong Side of Eighty"', pos:'PG', ht:"6'2\"", wt:'182 lbs', from:'Midian Desert · No College', yr:'Age 80',
-        ovr:34, ovrC:'#ef4444',
-        stats:[{l:'CONN',v:'08'},{l:'ACCESS',v:'03'},{l:'SPEECH',v:'04'},{l:'WARRANTS',v:'01'}],
-        bars:[{l:'Network',v:8,c:'#ef4444'},{l:'Palace Acc',v:3,c:'#ef4444'},{l:'Humility',v:99,c:'#22c55e'},{l:'Faith',v:93,c:'#22c55e'},{l:'Patience',v:99,c:'#22c55e'}],
-        scout:"Active homicide warrant in Egypt. Four decades off the grid. Self-described terrible speaker. Current occupation: sheep. Has not visited target market in 40 years.",
-        gp:true, stripe:'#FDB927' }
-    ],
-    ann:{ who:'BARKLEY', img:'crew_barkley', color:'#f59e0b',
-      quote:"This man is EIGHTY YEARS OLD. He has a warrant. He talks to SHEEP. The Palace Kid is a top-5 pick of all time. This isn't even close. I cannot believe what I'm seeing." },
-    rWhy:"The palace made Moses powerful. The desert made him <b>useful</b>. At 40 he tried to liberate Israel himself — killed one Egyptian and ran. At 80 he said 'I can't do this.' That was God's cue. The moment Moses stopped trusting his own resume was the moment God could work through him.",
-    rQuip:"\"The desert wasn't a detour. It was the training camp.\"",
-    scripture:"\"The LORD said: I have indeed seen the misery of my people... I am sending you.\" — Exodus 3:7,10"
-  },
-  {
-    id:'wolves', logo:'logo_wolves', name:'Israel Timberwolves', city:'Gibeah, Israel',
-    c1:'#1d4ed8', c2:'#94a3b8', round:'Round 2 of 9',
-    rec:'0–40 Losing Streak', recC:'#ef4444',
-    need:"Victor 'The Gath Destroyer' Goliath — 9'9\", Wemby comparisons don't do him justice — has shut down the roster for 40 straight days. King Saul hasn't left the locker room. Need a closer. Any closer. Please.",
-    players:[
-      { img:'p_saul_enemy', name:'King Saul', nick:'"Tallest Man in Israel"', pos:'C', ht:"7'1\"", wt:'268 lbs', from:'Tribe of Benjamin · Veteran', yr:'Year 12',
-        ovr:96, ovrC:'#22c55e',
-        stats:[{l:'HEIGHT',v:"7'1\""},{l:'COMBAT',v:'94'},{l:'ARMOR',v:'99'},{l:'COURAGE',v:'09'}],
-        bars:[{l:'Height',v:99,c:'#22c55e'},{l:'Strength',v:94,c:'#22c55e'},{l:'Armor',v:99,c:'#22c55e'},{l:'Courage',v:9,c:'#ef4444'},{l:'Faith',v:12,c:'#ef4444'}],
-        scout:"Tallest man in Israel. The actual king. Has armor, has done this before. Has not done anything in 40 days. Currently in the locker room. Will not explain why.",
-        gp:false, stripe:'#1d4ed8' },
-      { img:'p_david', name:'David "Shorty" Ben-Jesse', nick:'"The Lunch Guy"', pos:'???', ht:"5'9\"", wt:'160 lbs', from:'Bethlehem · No College · Shepherd', yr:'Rookie (today)',
-        ovr:22, ovrC:'#f59e0b',
-        stats:[{l:'HEIGHT',v:"5'9\""},{l:'HARP',v:'97'},{l:'SLING',v:'99'},{l:'SHEEP',v:'88'}],
-        bars:[{l:'Height',v:22,c:'#ef4444'},{l:'Experience',v:0,c:'#ef4444'},{l:'Sling Acc',v:99,c:'#22c55e'},{l:'Courage',v:99,c:'#22c55e'},{l:'Faith',v:99,c:'#22c55e'}],
-        scout:"Arrived today to deliver lunch for his brothers. Prior combat: lions and bears (unverified). Plays harp for stress management. Very confident about the giant situation. Does not own armor.",
-        gp:true, stripe:'#C9A84C' }
-    ],
-    ann:{ who:'SHAQ', img:'crew_shaq', color:'#3b82f6',
-      quote:"Goliath is nine-foot-nine. I was seven-one. Even I'm looking at this tape saying: that is a problem. David has no business on that floor. ...David won. I don't understand it either." },
-    rWhy:"Saul had everything except the one thing that mattered. David had nothing except the one thing that mattered. He'd already taken down lions and bears in fields where <b>nobody was watching</b>. Character built in private doesn't show up on any scouting report. Goliath never played again.",
-    rQuip:"\"When your resume says harpist and God assigns you giant duty.\"",
-    scripture:"\"The LORD does not look at the things people look at. People look at the outward appearance, but the LORD looks at the heart.\" — 1 Samuel 16:7"
-  },
-  {
-    id:'bethlehem', logo:'logo_bethlehem', name:'Bethlehem Rebuilders', city:'Bethlehem, Judah',
-    c1:'#7c2d12', c2:'#d97706', round:'Round 3 of 9',
-    rec:'Total Collapse', recC:'#f59e0b', isRuth:true,
-    need:"Complete franchise rebuild. GM Naomi has no cap space, no picks, no future. Every rational free agent evaluated the situation and walked. One player signs anyway.",
-    players:[
-      { img:'p_ruth', name:'Ruth "The Moabite"', nick:'"The One Who Stayed"', pos:'SF — FREE AGENT', ht:"5'6\"", wt:'138 lbs', from:'Moab · Zero Connections in Judah', yr:'Free Agent',
-        ovr:19, ovrC:'#f59e0b',
-        stats:[{l:'LOYALTY',v:'99'},{l:'COVENANT',v:'99'},{l:'MKT VAL',v:'02'},{l:'LEVERAGE',v:'00'}],
-        bars:[{l:'Mkt Value',v:2,c:'#ef4444'},{l:'Leverage',v:0,c:'#ef4444'},{l:'Loyalty',v:99,c:'#22c55e'},{l:'Covenant',v:99,c:'#22c55e'},{l:'Courage',v:96,c:'#22c55e'}],
-        scout:"Foreign. Widowed. No connections in Judah. Zero leverage. Turned down a clean exit — the GM told her to leave. Signs with the worst franchise in the league for no compensation. The book is named after her.",
-        gp:true, stripe:'#d97706' }
-    ],
-    ann:{ who:'EJ', img:'crew_ej', color:'#22c55e',
-      quote:"What she gave up — her home, her family, her nation, her future — that's the most valuable thing on the board. She gave all of it for nothing. Or so it seemed at the time." },
-    rWhy:"Every rational player evaluated Bethlehem and walked. Orpah made the sensible call — you can't blame her. But Ruth said: <b>\"Where you go I will go. Your people shall be my people.\"</b> No guarantee. No angel. No burning bush. She signed with a dead franchise out of pure covenant loyalty — before she knew how the story ended.",
-    rQuip:"\"The player nobody should have signed. The signing that changed everything.\"",
-    scripture:"\"Where you go I will go, and where you stay I will stay. Your people will be my people and your God my God.\" — Ruth 1:16",
-    disc:["Why did Ruth stay when leaving made complete sense?","Have you ever stayed with a person, a calling, or a commitment when walking away was the rational move?","What does it mean that the book is named Ruth — not Naomi, not Boaz?"]
-  },
-  {
-    id:'persia', logo:'logo_persia', name:'Persian Suns', city:'Susa, Persia',
-    c1:'#4c1d95', c2:'#d97706', round:'Round 4 of 9',
-    rec:'Genocide Imminent', recC:'#ef4444',
-    need:"One shot to reach the king and stop a genocide. Palace access non-negotiable. Approaching the king uninvited means death. Need someone already in the building.",
-    players:[
-      { img:'p_haman', name:'Gen. "Iron Fist" Haman', nick:'"The Decorated Commander"', pos:'PF', ht:"6'4\"", wt:'230 lbs', from:'Agagite · Military Academy', yr:'30-Year Veteran',
-        ovr:93, ovrC:'#22c55e',
-        stats:[{l:'COMBAT',v:'97'},{l:'STRATEGY',v:'91'},{l:'MEDALS',v:'99'},{l:'PALACE',v:'03'}],
-        bars:[{l:'Combat',v:97,c:'#22c55e'},{l:'Strategy',v:91,c:'#22c55e'},{l:'Influence',v:88,c:'#22c55e'},{l:'Palace Acc',v:3,c:'#ef4444'},{l:'Courage',v:68,c:'#f59e0b'}],
-        scout:"Decorated. Feared. Has a plan, probably has a sword. Cannot get within 400 yards of the throne room. This is a significant problem no combat medal resolves.",
-        gp:false, stripe:'#4c1d95' },
-      { img:'p_esther', name:'Esther bat-Abihail', nick:'"The Orphan Queen"', pos:'PG', ht:"5'5\"", wt:'125 lbs', from:'Tribe of Benjamin (classified)', yr:'Year 3',
-        ovr:29, ovrC:'#ef4444',
-        stats:[{l:'COMBAT',v:'09'},{l:'STRATEGY',v:'52'},{l:'PALACE',v:'99'},{l:'COURAGE',v:'94'}],
-        bars:[{l:'Combat',v:9,c:'#ef4444'},{l:'Strategy',v:52,c:'#f59e0b'},{l:'Palace Acc',v:99,c:'#22c55e'},{l:'Hidden ID',v:99,c:'#22c55e'},{l:'Courage',v:94,c:'#22c55e'}],
-        scout:"Orphan. True identity classified. Approaching the king uninvited = death penalty. Fasted three days. Walked in anyway. Already inside — positioned there years before she knew why.",
-        gp:true, stripe:'#C9A84C' }
-    ],
-    ann:{ who:'BARKLEY', img:'crew_barkley', color:'#f59e0b',
-      quote:"The General has 97 combat, 30 years experience — and a THREE in Palace Access. A THREE! You cannot win a game you can't get into the building for! This is not complicated!" },
-    rWhy:"The general had the resume. Esther had the access. <b>\"Who knows whether you have not come to the kingdom for such a time as this?\"</b> She had been placed — years before the crisis — in the one room that mattered. God doesn't just prepare people for moments. He positions them.",
-    rQuip:"\"Not who you'd expect to carry the expansion pack.\"",
-    scripture:"\"Who knows whether you have not come to the kingdom for such a time as this?\" — Esther 4:14"
-  },
-  {
-    id:'rome', logo:'logo_rome', name:'Roman Empire Thunder', city:'Antioch, Rome',
-    c1:'#7f1d1d', c2:'#ca8a04', round:'Round 5 of 9',
-    rec:'30 Markets to Open', recC:'#22c55e',
-    need:"Expand Christianity to 30 new markets simultaneously. Write the whole playbook. Must operate across multiple languages. Peter can't reach 26 of the 30 target cities.",
-    players:[
-      { img:'p_peter', name:'Simon "The Rock" Peter', nick:'"The Founding Disciple"', pos:'C', ht:"6'1\"", wt:'205 lbs', from:'Capernaum, Galilee · Fisherman', yr:'Year 3',
-        ovr:88, ovrC:'#22c55e',
-        stats:[{l:'TRUST',v:'96'},{l:'HISTORY',v:'99'},{l:'ZEAL',v:'91'},{l:'REACH',v:'44'}],
-        bars:[{l:'Trust',v:96,c:'#22c55e'},{l:'Loyalty',v:99,c:'#22c55e'},{l:'Theology',v:64,c:'#f59e0b'},{l:'Languages',v:22,c:'#ef4444'},{l:'Mkt Reach',v:44,c:'#f59e0b'}],
-        scout:"Walked with Jesus three years. Trusted by everyone. The Rock. Beloved. Speaks Aramaic exclusively. Cannot reach 26 of the 30 target markets.",
-        gp:false, stripe:'#7f1d1d' },
-      { img:'p_saul_enemy', name:'Saul "The Enforcer" of Tarsus', nick:'"Current Status: Enemy"', pos:'SF', ht:"5'8\"", wt:'168 lbs', from:'Tarsus · Pharisee Elite', yr:'Active Persecutor',
-        ovr:-12, ovrC:'#ef4444',
-        stats:[{l:'TRUST',v:'00'},{l:'ARRESTS',v:'99'},{l:'LANGUAGES',v:'99'},{l:'REACH',v:'97'}],
-        bars:[{l:'Trust',v:0,c:'#ef4444'},{l:'Loyalty',v:0,c:'#ef4444'},{l:'Theology',v:98,c:'#22c55e'},{l:'Languages',v:99,c:'#22c55e'},{l:'Mkt Reach',v:97,c:'#22c55e'}],
-        scout:"Currently arresting Christians. Approved Stephen's execution. Also: Hebrew, Greek, Latin, Roman citizen, elite theology, synagogue access in every target city. All pointed the wrong direction.",
-        gp:true, stripe:'#C9A84C' }
-    ],
-    ann:{ who:'KENNY', img:'crew_kenny', color:'#a78bfa',
-      quote:"Negative twelve overall. I have never seen a negative overall. You're asking me to draft the man actively destroying the league. But look at that market reach. Look at those languages. God didn't waste those assets. He redirected them." },
-    rWhy:"God didn't discard Saul's assets — He <b>redirected them</b>. Elite theology, Roman citizenship, Greek and Latin fluency, access to synagogues in every target city. Peter couldn't reach those markets. Saul was already networked into all of them. The most audacious trade in history.",
-    rQuip:"\"Enemy combatant to franchise apostle, straight up.\"",
-    scripture:"\"This man is my chosen instrument to proclaim my name to the Gentiles and their kings.\" — Acts 9:15"
-  },
-  {
-    id:'nineveh', logo:'logo_nineveh', name:'Nineveh Nets', city:'Nineveh, Assyria',
-    c1:'#0f766e', c2:'#94a3b8', round:'Round 6 of 9',
-    rec:'City Needs Warning', recC:'#f59e0b',
-    need:"One messenger. One speech. Whole city. Must actually mean it. Enthusiasm preferred — but apparently optional.",
-    players:[
-      { img:'p_isaiah', name:'Isaiah "Ike" Ben-Amoz Jr.', nick:'"The Professional Prophet"', pos:'SG', ht:"6'0\"", wt:'180 lbs', from:'Jerusalem · Prophet Academy', yr:'12-Year Veteran',
-        ovr:97, ovrC:'#22c55e',
-        stats:[{l:'WILLING',v:'99'},{l:'ATTITUDE',v:'98'},{l:'OBEDIENT',v:'97'},{l:'ENTHUS',v:'99'}],
-        bars:[{l:'Willingness',v:99,c:'#22c55e'},{l:'Attitude',v:98,c:'#22c55e'},{l:'Obedience',v:97,c:'#22c55e'},{l:'Enthusiasm',v:99,c:'#22c55e'},{l:'Humility',v:88,c:'#22c55e'}],
-        scout:"Perfect attitude. Ready immediately. Loves the mission. Memorized the city layout. Zero concerns. An absolute professional in every respect.",
-        gp:false, stripe:'#0f766e' },
-      { img:'p_jonah', name:'Jonah "Wrong Way" Ben-Amittai', nick:'"Currently On A Boat"', pos:'SF', ht:"5'11\"", wt:'177 lbs', from:'Gath-Hepher · Reluctant', yr:'Unavailable',
-        ovr:11, ovrC:'#ef4444',
-        stats:[{l:'WILLING',v:'03'},{l:'DIRECTION',v:'↙'},{l:'FISH DAYS',v:'03'},{l:'ATTITUDE',v:'04'}],
-        bars:[{l:'Willingness',v:3,c:'#ef4444'},{l:'Attitude',v:4,c:'#ef4444'},{l:'Obedience',v:6,c:'#ef4444'},{l:'Direction',v:2,c:'#ef4444'},{l:'Humility',v:55,c:'#f59e0b'}],
-        scout:"Booked passage to Tarshish — opposite direction. Swallowed by a fish, three days to reconsider. Delivered history's shortest sermon (eight words). Furious when it worked. Currently sulking under a plant.",
-        gp:true, stripe:'#C9A84C' }
-    ],
-    ann:{ who:'BARKLEY', img:'crew_barkley', color:'#f59e0b',
-      quote:"EIGHT WORDS. His whole sermon was EIGHT WORDS. 'Forty more days and Nineveh will be overthrown.' That's it! The entire city repented! And then he got MAD about it! I CANNOT." },
-    rWhy:"Jonah is the most <b>uncomfortable</b> pick. God used him even though his motives were wrong the entire time. He didn't want Nineveh saved — that's why he ran. He ran, argued inside a fish, preached the minimum possible sermon, and sulked when it worked. God's purposes don't require your enthusiasm. Just your availability.",
-    rQuip:"\"Achievement Unlocked: Mission Succeeded Despite Absolutely Everything.\"",
-    scripture:"\"When God saw what they did and how they turned from their evil ways, he relented.\" — Jonah 3:10"
-  },
-  {
-    id:'samson', logo:'logo_wolves', name:'Philistine Fighters', city:'Zorah, Israel',
-    c1:'#854d0e', c2:'#d97706', round:'Round 7 of 9', isTwist:true,
-    rec:'Philistines Undefeated', recC:'#ef4444',
-    need:"Need someone — anyone — to handle the Philistine threat. Someone with good judgment and self-control would be ideal. Any legitimate candidate welcome.",
-    note:"You've probably spotted the pattern. God always picks the underdog, right? ...right?",
-    players:[
-      { img:'p_plainRookie', name:'Marcus "Normal" Ben-Israel', nick:'"Solid Guy, Good Judgment"', pos:'PF', ht:"6'4\"", wt:'215 lbs', from:'Judah · Average Background', yr:'Year 5',
-        ovr:81, ovrC:'#22c55e',
-        stats:[{l:'JUDGMENT',v:'94'},{l:'SELF-CTL',v:'91'},{l:'HAIRCUT',v:'99'},{l:'FOX INC',v:'00'}],
-        bars:[{l:'Judgment',v:94,c:'#22c55e'},{l:'Self-Control',v:91,c:'#22c55e'},{l:'Consistency',v:88,c:'#22c55e'},{l:'Fox Incidents',v:0,c:'#22c55e'},{l:'Hair Security',v:99,c:'#22c55e'}],
-        scout:"Solid. Dependable. Makes good decisions. Has never burned anything down. Stable relationship history. Maintained the same haircut for 12 years without incident. Recommended.",
-        gp:false, stripe:'#854d0e' },
-      { img:'p_samson', name:'Samson "The Jawbone" ben-Manoah', nick:'"Hair: CRITICAL WEAKNESS"', pos:'SF/Brawler', ht:"6'6\"", wt:'240 lbs', from:'Zorah, Dan · Nazirite', yr:'Complicated',
-        ovr:99, ovrC:'#22c55e',
-        stats:[{l:'STRENGTH',v:'99'},{l:'WISDOM',v:'04'},{l:'SELF-CTL',v:'02'},{l:'JAWBONE',v:'99'}],
-        bars:[{l:'Strength',v:99,c:'#22c55e'},{l:'Wisdom',v:4,c:'#ef4444'},{l:'Self-Control',v:2,c:'#ef4444'},{l:'Fox Incidents',v:99,c:'#ef4444'},{l:'Hair Security',v:3,c:'#ef4444'}],
-        scout:"Killed a lion bare-handed, told no one. Killed 30 men over a lost bet. Set 300 foxes on fire as a prank. Killed 1,000 Philistines with a donkey jawbone. Currently dating someone obviously trying to learn his weakness.",
-        gp:true, stripe:'#C9A84C' }
-    ],
-    ann:{ who:'BARKLEY', img:'crew_barkley', color:'#f59e0b',
-      quote:"HE SET FOXES ON FIRE. As a PRANK. THREE HUNDRED FOXES. And God picked him over the Normal Guy?? I need somebody to explain this to me RIGHT NOW." },
-    rWhy:"Samson breaks the pattern — or deepens it. God doesn't always pick the underdog or the humble. Sometimes He picks <b>the mess</b> — and works through them anyway. Samson's story isn't about God endorsing bad decisions. It's about God accomplishing purposes through broken instruments. Which raises an uncomfortable question.",
-    rQuip:"\"God can win with your worst lineup. He'd prefer your best.\"",
-    scripture:"\"The Spirit of the LORD came powerfully upon him.\" — Judges 14:6"
-  },
-  {
-    id:'hebrewII', logo:'logo_rockets', name:'Hebrew Rockets — Free Agency', city:'Goshen, Egypt',
-    c1:'#C41E3A', c2:'#C9A84C', round:'Round 8 of 9', isTwist:true,
-    rec:'Still Need a Voice', recC:'#f59e0b',
-    need:"Moses hears God but can't speak publicly. Aaron speaks brilliantly but needs direction. Pick one. Watch what happens.",
-    note:"You've been picking one person all night. This time, pick the best candidate. Go ahead.",
-    players:[
-      { img:'p_shepherdMo', name:'Moses ben-Amram', nick:'"Hears God, Terrible Speaker"', pos:'PG', ht:"6'2\"", wt:'182 lbs', from:'Midian → Sinai', yr:'Age 80',
-        ovr:88, ovrC:'#22c55e',
-        stats:[{l:'REVELTN',v:'99'},{l:'VISION',v:'99'},{l:'SPEECH',v:'04'},{l:'PUB SPK',v:'03'}],
-        bars:[{l:'Revelation',v:99,c:'#22c55e'},{l:'Vision',v:99,c:'#22c55e'},{l:'Pub Speaking',v:3,c:'#ef4444'},{l:'Independence',v:45,c:'#f59e0b'},{l:'Humility',v:99,c:'#22c55e'}],
-        scout:"Direct line to God. Receives instructions clearly. Cannot communicate them publicly — self-described, confirmed on record. Needs a voice.",
-        gp:true, stripe:'#C41E3A' },
-      { img:'p_aaron', name:'Aaron ben-Amram', nick:'"The Voice — Mic Always Hot"', pos:'SG', ht:"6'1\"", wt:'185 lbs', from:'Egypt · High Priest', yr:'Year 1',
-        ovr:84, ovrC:'#22c55e',
-        stats:[{l:'SPEECH',v:'99'},{l:'PRESENCE',v:'96'},{l:'REVELTN',v:'12'},{l:'MIC CHK',v:'99'}],
-        bars:[{l:'Pub Speaking',v:99,c:'#22c55e'},{l:'Presence',v:96,c:'#22c55e'},{l:'Revelation',v:12,c:'#ef4444'},{l:'Independence',v:22,c:'#ef4444'},{l:'Humility',v:75,c:'#22c55e'}],
-        scout:"Exceptional communicator. Commanding presence. Does not receive direct revelation. Needs direction. Cannot function independently. Needs a signal.",
-        gp:true, stripe:'#C9A84C' }
-    ],
-    isBothPick:true,
-    ann:{ who:'EJ', img:'crew_ej', color:'#22c55e',
-      quote:"Both of them. God took both of them." },
-    ann2:{ who:'BARKLEY', img:'crew_barkley', color:'#f59e0b',
-      quote:"You CANNOT do that! This is a DRAFT. You pick ONE player. That's the RULES." },
-    ann3:{ who:'SHAQ', img:'crew_shaq', color:'#3b82f6',
-      quote:"I ran the Lakers with Kobe. Two stars. Different skills. Neither one alone. ...It works." },
-    rWhy:"Neither Moses nor Aaron was complete alone. Moses had the revelation and couldn't deliver it. Aaron had the voice and no revelation. <b>Together they covered what neither could cover alone.</b> The twist isn't just who God picked — it's that God's team sometimes looks nothing like what the draft board expected.",
-    rQuip:"\"Sometimes the team God builds doesn't fit the roster you were planning for.\"",
-    scripture:"\"He will speak to the people for you, and it will be as if he were your mouth.\" — Exodus 4:16"
-  },
-  {
-    id:'jazz', logo:'logo_nineveh', name:'Utah Jazz', city:'Salt Lake City, Utah',
-    c1:'#002B5C', c2:'#F9A01B', round:'Round 9 of 9', isMod:true,
-    rec:'Top-2 Pick', recC:'#22c55e',
-    need:"Jazz have a top-2 pick. Two elite prospects. Both are legitimately great. The whole state is watching. For once — there's no obvious wrong answer.",
-    players:[
-      { img:'p_darryn', name:'Darryn Peterson', nick:'"D-Pete · BYU · Pure Scorer"', pos:'SG', ht:"6'4\"", wt:'195 lbs', from:'BYU · Big 12', yr:'2025 Draft',
-        ovr:95, ovrC:'#22c55e', isPhoto:true,
-        stats:[{l:'SCORING',v:'97'},{l:'HANDLES',v:'94'},{l:'IQ',v:'92'},{l:'MOTOR',v:'99'}],
-        bars:[{l:'Scoring',v:97,c:'#22c55e'},{l:'Ball Handling',v:94,c:'#22c55e'},{l:'Basketball IQ',v:92,c:'#22c55e'},{l:'Motor',v:99,c:'#22c55e'},{l:'Character',v:95,c:'#22c55e'}],
-        scout:"Elite scorer. High motor. BYU product — character well-documented. Competes at every level. The kind of player you build around.",
-        gp:false, stripe:'#002B5C' },
-      { img:'p_dybantsa', name:'AJ Dybantsa', nick:'"The Hammer · Kansas · Physical Force"', pos:'PF', ht:"6'9\"", wt:'220 lbs', from:'Kansas · Big 12', yr:'2025 Draft',
-        ovr:96, ovrC:'#22c55e', isPhoto:true,
-        stats:[{l:'ATHLETC',v:'99'},{l:'FINISH',v:'97'},{l:'DEFEND',v:'94'},{l:'CEILING',v:'99'}],
-        bars:[{l:'Athleticism',v:99,c:'#22c55e'},{l:'Finishing',v:97,c:'#22c55e'},{l:'Defense',v:94,c:'#22c55e'},{l:'Motor',v:96,c:'#22c55e'},{l:'Character',v:94,c:'#22c55e'}],
-        scout:"Physical freak. Finishes above the rim. Defensive versatility rare at this age. Generational ceiling. Utah needs someone to build around.",
-        gp:false, stripe:'#F9A01B' }
-    ],
-    ann:{ who:'SHAQ', img:'crew_shaq', color:'#3b82f6',
-      quote:"I'm taking Dybantsa. Big man always wins. Size wins. I said what I said." },
-    ann2:{ who:'BARKLEY', img:'crew_barkley', color:'#f59e0b',
-      quote:"Big man always wins." },
-    ann3:{ who:'EJ', img:'crew_ej', color:'#22c55e',
-      quote:"You two agree on something. This might be the sign we've been waiting for." },
-    rWhy:"For the first time tonight — both candidates are legitimately great. There's no obvious wrong answer. The analytics are close. All of Utah is debating. <b>And that's exactly where God's scouting report asks different questions.</b> Not just: who's more talented? But: who is this person becoming? What are they available for? What will they do with what they've been given?",
-    rQuip:"\"The stats are close. The character questions are what matter.\"",
-    scripture:"\"To whom much is given, much will be required.\" — Luke 12:48",
-    disc:["Both are elite. What else should matter when evaluating someone for a major role?","If God were scouting the Jazz — what would His report focus on?","What does it mean to be 'available' for what God has in mind for you?"]
-  }
+const SCENARIOS=[
+  {id:'egypt',logo:'logo_egypt',name:'Egypt Lakers',city:'Memphis, Egypt',c1:'#552583',c2:'#FDB927',round:'Round 1 of 9',rec:'Dynasty — 400 Yrs',recC:'#ef4444',
+   need:"God's front office needs a floor general to go head-to-head with Pharaoh and liberate an enslaved nation. Market knowledge and palace access essential.",
+   note:"The twist: God isn't drafting from outside Egypt. He's recruiting from within the most powerful franchise on Earth.",
+   players:[
+    {img:'p_princeMoses',name:'Prince "Ram" Moses',nick:'"The Palace Prospect"',pos:'PG',ht:"6'2\"",wt:'195 lbs',from:'Palace of Egypt · Elite Academy',yr:'Age 40',ovr:94,ovrC:'#22c55e',
+     stats:[{l:'CONN',v:'99'},{l:'ACCESS',v:'97'},{l:'SPEECH',v:'91'},{l:'CLOUT',v:'96'}],
+     bars:[{l:'Network',v:99,c:'#22c55e'},{l:'Palace Acc',v:97,c:'#22c55e'},{l:'Humility',v:11,c:'#ef4444'},{l:'Faith',v:24,c:'#ef4444'},{l:'Patience',v:18,c:'#ef4444'}],
+     scout:"Generational credentials. Palace-raised, Pharaoh-trained. Speaks the language, knows the culture. The obvious #1.",gp:false,stripe:'#552583'},
+    {img:'p_shepherdMo',name:'Shepherd Mo',nick:'"Wrong Side of Eighty"',pos:'PG',ht:"6'2\"",wt:'182 lbs',from:'Midian Desert · No College',yr:'Age 80',ovr:34,ovrC:'#ef4444',
+     stats:[{l:'CONN',v:'08'},{l:'ACCESS',v:'03'},{l:'SPEECH',v:'04'},{l:'WARRANTS',v:'01'}],
+     bars:[{l:'Network',v:8,c:'#ef4444'},{l:'Palace Acc',v:3,c:'#ef4444'},{l:'Humility',v:99,c:'#22c55e'},{l:'Faith',v:93,c:'#22c55e'},{l:'Patience',v:99,c:'#22c55e'}],
+     scout:"Active homicide warrant. Four decades off the grid. Self-described terrible speaker. Current occupation: sheep.",gp:true,stripe:'#FDB927'}
+   ],
+   ann:{who:'BARKLEY',img:'crew_barkley',color:'#f59e0b',quote:"This man is EIGHTY YEARS OLD. He has a WARRANT. He talks to SHEEP. The Palace Kid is a top-5 pick of all time. I cannot believe what I'm seeing."},
+   rWhy:"The palace made Moses powerful. The desert made him <b>useful</b>. At 40 he tried to liberate Israel himself — killed one Egyptian and ran. At 80 he said 'I can't do this.' That was God's cue.",
+   rQuip:"\"The desert wasn't a detour. It was the training camp.\"",
+   scripture:"\"I have indeed seen the misery of my people... I am sending you.\" — Exodus 3:7,10",
+   revImgs:['p_shepherdMo']},
+
+  {id:'wolves',logo:'logo_wolves',name:'Israel Timberwolves',city:'Gibeah, Israel',c1:'#1d4ed8',c2:'#94a3b8',round:'Round 2 of 9',rec:'0–40 Losing Streak',recC:'#ef4444',
+   need:"Victor 'The Gath Destroyer' Goliath — 9'9\", Wemby comparisons don't do him justice — has personally ended 40 straight matchups. King Saul hasn't left the locker room. Need a closer.",
+   players:[
+    {img:'p_saul_king',name:'King Saul',nick:'"Tallest Man in Israel"',pos:'C',ht:"7'1\"",wt:'268 lbs',from:'Tribe of Benjamin · Veteran',yr:'Year 12',ovr:96,ovrC:'#22c55e',
+     stats:[{l:'HEIGHT',v:"7'1\""},{l:'COMBAT',v:'94'},{l:'ARMOR',v:'99'},{l:'COURAGE',v:'09'}],
+     bars:[{l:'Height',v:99,c:'#22c55e'},{l:'Strength',v:94,c:'#22c55e'},{l:'Armor',v:99,c:'#22c55e'},{l:'Courage',v:9,c:'#ef4444'},{l:'Faith',v:12,c:'#ef4444'}],
+     scout:"The actual king. Tallest man in Israel. Has armor. Has not moved in 40 days. Currently in the locker room. Will not explain why.",gp:false,stripe:'#1d4ed8'},
+    {img:'p_david',name:'David "Shorty" Ben-Jesse',nick:'"The Lunch Guy"',pos:'???',ht:"5'9\"",wt:'160 lbs',from:'Bethlehem · No College · Shepherd',yr:'Rookie (today)',ovr:22,ovrC:'#f59e0b',
+     stats:[{l:'HEIGHT',v:"5'9\""},{l:'HARP',v:'97'},{l:'SLING',v:'99'},{l:'SHEEP',v:'88'}],
+     bars:[{l:'Height',v:22,c:'#ef4444'},{l:'Experience',v:0,c:'#ef4444'},{l:'Sling Acc',v:99,c:'#22c55e'},{l:'Courage',v:99,c:'#22c55e'},{l:'Faith',v:99,c:'#22c55e'}],
+     scout:"Arrived today to deliver lunch. Prior combat: lions and bears (unverified). Plays harp. Very confident about the giant situation. Does not own armor.",gp:true,stripe:'#C9A84C'}
+   ],
+   ann:{who:'SHAQ',img:'crew_shaq',color:'#3b82f6',quote:"Goliath is nine-foot-nine. I was seven-one. Even I'm looking at this tape saying: that is a problem. David has no business on that floor. ...David won. I don't understand it either."},
+   rWhy:"Saul had everything except the one thing that mattered. David had nothing except the one thing that mattered. He'd already tested his faith against lions and bears in fields where <b>nobody was watching</b>. Goliath never played again.",
+   rQuip:"\"When your resume says harpist and God assigns you giant duty.\"",
+   scripture:"\"The LORD does not look at the outward appearance, but the LORD looks at the heart.\" — 1 Samuel 16:7",
+   revImgs:['p_david']},
+
+  {id:'bethlehem',logo:'logo_bethlehem',name:'Bethlehem Rebuilders',city:'Bethlehem, Judah',c1:'#7c2d12',c2:'#d97706',round:'Round 3 of 9',rec:'Total Collapse',recC:'#f59e0b',isRuth:true,
+   need:"Complete franchise rebuild. GM Naomi has no cap space, no picks, no future. Every rational free agent walked. One player signs anyway.",
+   players:[
+    {img:'p_ruth',name:'Ruth "The Moabite"',nick:'"The One Who Stayed"',pos:'SF — FREE AGENT',ht:"5'6\"",wt:'138 lbs',from:'Moab · Zero Connections in Judah',yr:'Free Agent',ovr:19,ovrC:'#f59e0b',
+     stats:[{l:'LOYALTY',v:'99'},{l:'COVENANT',v:'99'},{l:'MKT VAL',v:'02'},{l:'LEVERAGE',v:'00'}],
+     bars:[{l:'Mkt Value',v:2,c:'#ef4444'},{l:'Leverage',v:0,c:'#ef4444'},{l:'Loyalty',v:99,c:'#22c55e'},{l:'Covenant',v:99,c:'#22c55e'},{l:'Courage',v:96,c:'#22c55e'}],
+     scout:"Foreign. Widowed. Zero leverage. Turned down a clean exit — the GM told her to leave. Signs with the worst franchise in the league for nothing. The book is named after her.",gp:true,stripe:'#d97706'}
+   ],
+   ann:{who:'EJ',img:'crew_ej',color:'#22c55e',quote:"What she gave up — her home, her family, her nation, her future — that's the most valuable thing on the board. She gave all of it for nothing. Or so it seemed at the time."},
+   rWhy:"Orpah made the sensible call — you can't blame her. But Ruth said: <b>\"Where you go I will go. Your people shall be my people.\"</b> No guarantee. No angel. No burning bush. Covenant loyalty before she knew the outcome.",
+   rQuip:"\"The player nobody should have signed. The signing that changed everything.\"",
+   scripture:"\"Where you go I will go, and where you stay I will stay. Your people will be my people and your God my God.\" — Ruth 1:16",
+   disc:["Why did Ruth stay when leaving made complete sense?","Have you ever stayed — with a person, a calling, a commitment — when walking away was the rational move?","What does it mean that the book is named Ruth — not Naomi, not Boaz?","God never speaks directly in Ruth. Where do you see Him anyway?"],
+   revImgs:['p_ruth']},
+
+  {id:'persia',logo:'logo_persia',name:'Persian Suns',city:'Susa, Persia',c1:'#4c1d95',c2:'#d97706',round:'Round 4 of 9',rec:'Genocide Imminent',recC:'#ef4444',
+   need:"One shot to reach the king and stop a genocide. Palace access non-negotiable. Approaching the king uninvited means death. Need someone already in the building.",
+   players:[
+    {img:'p_haman',name:'Gen. "Iron Fist" Haman',nick:'"The Decorated Commander"',pos:'PF',ht:"6'4\"",wt:'230 lbs',from:'Agagite · Military Academy',yr:'30-Year Veteran',ovr:93,ovrC:'#22c55e',
+     stats:[{l:'COMBAT',v:'97'},{l:'STRATEGY',v:'91'},{l:'MEDALS',v:'99'},{l:'PALACE',v:'03'}],
+     bars:[{l:'Combat',v:97,c:'#22c55e'},{l:'Strategy',v:91,c:'#22c55e'},{l:'Influence',v:88,c:'#22c55e'},{l:'Palace Acc',v:3,c:'#ef4444'},{l:'Courage',v:68,c:'#f59e0b'}],
+     scout:"Decorated. Feared. Has a plan, probably has a sword. Cannot get within 400 yards of the throne room.",gp:false,stripe:'#4c1d95'},
+    {img:'p_esther',name:'Esther bat-Abihail',nick:'"The Orphan Queen"',pos:'PG',ht:"5'5\"",wt:'125 lbs',from:'Tribe of Benjamin (classified)',yr:'Year 3',ovr:29,ovrC:'#ef4444',
+     stats:[{l:'COMBAT',v:'09'},{l:'STRATEGY',v:'52'},{l:'PALACE',v:'99'},{l:'COURAGE',v:'94'}],
+     bars:[{l:'Combat',v:9,c:'#ef4444'},{l:'Strategy',v:52,c:'#f59e0b'},{l:'Palace Acc',v:99,c:'#22c55e'},{l:'Hidden ID',v:99,c:'#22c55e'},{l:'Courage',v:94,c:'#22c55e'}],
+     scout:"Orphan. Uninvited approach = death penalty. Fasted three days. Walked in anyway. Already inside — positioned there years before she knew why.",gp:true,stripe:'#C9A84C'}
+   ],
+   ann:{who:'BARKLEY',img:'crew_barkley',color:'#f59e0b',quote:"The General has 97 combat, 30 years experience — and a THREE in Palace Access. A THREE! You cannot win a game you can't get into the building for!"},
+   rWhy:"The general had the resume. Esther had the access. <b>\"Who knows whether you have not come to the kingdom for such a time as this?\"</b> She had been placed — years before the crisis — in the one room that mattered.",
+   rQuip:"\"Not who you'd expect to carry the expansion pack.\"",
+   scripture:"\"Who knows whether you have not come to the kingdom for such a time as this?\" — Esther 4:14",
+   revImgs:['p_esther']},
+
+  {id:'rome',logo:'logo_rome',name:'Roman Empire Thunder',city:'Antioch, Rome',c1:'#7f1d1d',c2:'#ca8a04',round:'Round 5 of 9',rec:'30 Markets to Open',recC:'#22c55e',
+   need:"Expand Christianity to 30 new markets simultaneously. Write the playbook. Must operate across multiple languages. Peter can't reach 26 of the 30 target cities.",
+   players:[
+    {img:'p_peter',name:'Simon "The Rock" Peter',nick:'"The Founding Disciple"',pos:'C',ht:"6'1\"",wt:'205 lbs',from:'Capernaum, Galilee · Fisherman',yr:'Year 3',ovr:88,ovrC:'#22c55e',
+     stats:[{l:'TRUST',v:'96'},{l:'HISTORY',v:'99'},{l:'ZEAL',v:'91'},{l:'REACH',v:'44'}],
+     bars:[{l:'Trust',v:96,c:'#22c55e'},{l:'Loyalty',v:99,c:'#22c55e'},{l:'Theology',v:64,c:'#f59e0b'},{l:'Languages',v:22,c:'#ef4444'},{l:'Mkt Reach',v:44,c:'#f59e0b'}],
+     scout:"Walked with Jesus three years. Trusted by everyone. The Rock. Speaks Aramaic exclusively. Cannot reach 26 of the 30 target markets.",gp:false,stripe:'#7f1d1d'},
+    {img:'p_saul_enemy',name:'Saul "The Enforcer" of Tarsus',nick:'"Current Status: Enemy"',pos:'SF',ht:"5'8\"",wt:'168 lbs',from:'Tarsus · Pharisee Elite',yr:'Active Persecutor',ovr:-12,ovrC:'#ef4444',
+     stats:[{l:'TRUST',v:'00'},{l:'ARRESTS',v:'99'},{l:'LANGUAGES',v:'99'},{l:'REACH',v:'97'}],
+     bars:[{l:'Trust',v:0,c:'#ef4444'},{l:'Loyalty',v:0,c:'#ef4444'},{l:'Theology',v:98,c:'#22c55e'},{l:'Languages',v:99,c:'#22c55e'},{l:'Mkt Reach',v:97,c:'#22c55e'}],
+     scout:"Currently arresting Christians. Approved Stephen's execution. Hebrew, Greek, Latin, Roman citizen, elite theology, synagogue access everywhere. All pointed the wrong direction.",gp:true,stripe:'#C9A84C'}
+   ],
+   ann:{who:'KENNY',img:'crew_kenny',color:'#a78bfa',quote:"Negative twelve overall. Never seen that. God didn't waste those assets — He redirected them. The most audacious trade in history."},
+   rWhy:"God didn't discard Saul's assets — He <b>redirected them</b>. Elite theology, Roman citizenship, Greek and Latin fluency, access to synagogues in every target city. Peter couldn't reach those markets. Saul was already networked into all of them.",
+   rQuip:"\"Enemy combatant to franchise apostle, straight up.\"",
+   scripture:"\"This man is my chosen instrument to proclaim my name to the Gentiles and their kings.\" — Acts 9:15",
+   revImgs:['p_saul_enemy']},
+
+  {id:'nineveh',logo:'logo_nineveh',name:'Nineveh Nets',city:'Nineveh, Assyria',c1:'#0f766e',c2:'#94a3b8',round:'Round 6 of 9',rec:'City Needs Warning',recC:'#f59e0b',
+   need:"One messenger. One speech. Whole city. Must actually mean it. Enthusiasm preferred — apparently optional.",
+   players:[
+    {img:'p_isaiah',name:'Isaiah "Ike" Ben-Amoz Jr.',nick:'"The Professional Prophet"',pos:'SG',ht:"6'0\"",wt:'180 lbs',from:'Jerusalem · Prophet Academy',yr:'12-Year Veteran',ovr:97,ovrC:'#22c55e',
+     stats:[{l:'WILLING',v:'99'},{l:'ATTITUDE',v:'98'},{l:'OBEDIENT',v:'97'},{l:'ENTHUS',v:'99'}],
+     bars:[{l:'Willingness',v:99,c:'#22c55e'},{l:'Attitude',v:98,c:'#22c55e'},{l:'Obedience',v:97,c:'#22c55e'},{l:'Enthusiasm',v:99,c:'#22c55e'},{l:'Humility',v:88,c:'#22c55e'}],
+     scout:"Perfect attitude. Ready immediately. Loves the mission. Memorized the city layout. Zero concerns. An absolute professional.",gp:false,stripe:'#0f766e'},
+    {img:'p_jonah',name:'Jonah "Wrong Way" Ben-Amittai',nick:'"Currently On A Boat"',pos:'SF',ht:"5'11\"",wt:'177 lbs',from:'Gath-Hepher · Reluctant',yr:'Unavailable',ovr:11,ovrC:'#ef4444',
+     stats:[{l:'WILLING',v:'03'},{l:'DIRECTION',v:'↙'},{l:'FISH DAYS',v:'03'},{l:'ATTITUDE',v:'04'}],
+     bars:[{l:'Willingness',v:3,c:'#ef4444'},{l:'Attitude',v:4,c:'#ef4444'},{l:'Obedience',v:6,c:'#ef4444'},{l:'Direction',v:2,c:'#ef4444'},{l:'Humility',v:55,c:'#f59e0b'}],
+     scout:"Booked passage opposite direction. Swallowed by a fish. Three days to reconsider. Eight-word sermon. Furious when it worked. Sulking under a plant.",gp:true,stripe:'#C9A84C'}
+   ],
+   ann:{who:'BARKLEY',img:'crew_barkley',color:'#f59e0b',quote:"EIGHT WORDS. His whole sermon was EIGHT WORDS. The entire city repented! And then he got MAD about it! I CANNOT."},
+   rWhy:"Jonah is the most <b>uncomfortable</b> pick. God used him even though his motives were wrong the entire time. He ran, argued inside a fish, preached the minimum, sulked when it worked. God's purposes don't require your enthusiasm. Just your availability.",
+   rQuip:"\"Achievement Unlocked: Mission Succeeded Despite Absolutely Everything.\"",
+   scripture:"\"When God saw what they did and how they turned from their evil ways, he relented.\" — Jonah 3:10",
+   revImgs:['p_jonah']},
+
+  {id:'samson',logo:'logo_wolves',name:'Philistine Fighters',city:'Zorah, Israel',c1:'#854d0e',c2:'#d97706',round:'Round 7 of 9',isTwist:true,rec:'Philistines Undefeated',recC:'#ef4444',
+   need:"Need someone to handle the Philistine threat. Good judgment and self-control welcome — apparently not required.",
+   note:"You've spotted the pattern by now. God always picks the underdog, right? ...right?",
+   players:[
+    {img:'p_plainRookie',name:'Marcus "Normal" Ben-Israel',nick:'"Solid Guy, Good Judgment"',pos:'PF',ht:"6'4\"",wt:'215 lbs',from:'Judah · Average Background',yr:'Year 5',ovr:81,ovrC:'#22c55e',
+     stats:[{l:'JUDGMENT',v:'94'},{l:'SELF-CTL',v:'91'},{l:'HAIRCUT',v:'99'},{l:'FOX INC',v:'00'}],
+     bars:[{l:'Judgment',v:94,c:'#22c55e'},{l:'Self-Control',v:91,c:'#22c55e'},{l:'Consistency',v:88,c:'#22c55e'},{l:'Fox Incidents',v:0,c:'#22c55e'},{l:'Hair Security',v:99,c:'#22c55e'}],
+     scout:"Solid. Dependable. Zero fox incidents. Has maintained the same haircut for 12 years without incident. Recommended.",gp:false,stripe:'#854d0e'},
+    {img:'p_samson',name:'Samson "The Jawbone" ben-Manoah',nick:'"Hair: CRITICAL WEAKNESS"',pos:'SF/Brawler',ht:"6'6\"",wt:'240 lbs',from:'Zorah, Dan · Nazirite',yr:'Complicated',ovr:99,ovrC:'#22c55e',
+     stats:[{l:'STRENGTH',v:'99'},{l:'WISDOM',v:'04'},{l:'SELF-CTL',v:'02'},{l:'JAWBONE',v:'99'}],
+     bars:[{l:'Strength',v:99,c:'#22c55e'},{l:'Wisdom',v:4,c:'#ef4444'},{l:'Self-Control',v:2,c:'#ef4444'},{l:'Fox Incidents',v:99,c:'#ef4444'},{l:'Hair Security',v:3,c:'#ef4444'}],
+     scout:"Killed a lion bare-handed, told no one. Killed 30 men over a lost bet. Set 300 foxes on fire as a prank. Killed 1,000 with a donkey jawbone. Currently dating someone obviously trying to learn his weakness.",gp:true,stripe:'#C9A84C'}
+   ],
+   ann:{who:'BARKLEY',img:'crew_barkley',color:'#f59e0b',quote:"HE SET FOXES ON FIRE. As a PRANK. THREE HUNDRED FOXES. And God picked him over the Normal Guy?? I need somebody to explain this RIGHT NOW."},
+   rWhy:"Samson breaks the pattern — or deepens it. God doesn't always pick the humble underdog. Sometimes He picks <b>the mess</b> and works through them anyway. It's about God accomplishing purposes through broken instruments.",
+   rQuip:"\"God can win with your worst lineup. He'd prefer your best.\"",
+   scripture:"\"The Spirit of the LORD came powerfully upon him.\" — Judges 14:6",
+   revImgs:['p_samson']},
+
+  {id:'hebrewII',logo:'logo_rockets',name:'Hebrew Rockets — Free Agency',city:'Goshen, Egypt',c1:'#C41E3A',c2:'#C9A84C',round:'Round 8 of 9',isTwist:true,rec:'Still Need a Voice',recC:'#f59e0b',
+   need:"Moses hears God but can't speak publicly. Aaron speaks brilliantly but needs direction. Pick one. Watch what happens.",
+   note:"You've been picking one person all night. Now pick the best candidate.",
+   players:[
+    {img:'p_shepherdMo',name:'Moses ben-Amram',nick:'"Hears God, Terrible Speaker"',pos:'PG',ht:"6'2\"",wt:'182 lbs',from:'Midian → Sinai',yr:'Age 80',ovr:88,ovrC:'#22c55e',
+     stats:[{l:'REVELTN',v:'99'},{l:'VISION',v:'99'},{l:'SPEECH',v:'04'},{l:'PUB SPK',v:'03'}],
+     bars:[{l:'Revelation',v:99,c:'#22c55e'},{l:'Vision',v:99,c:'#22c55e'},{l:'Pub Speaking',v:3,c:'#ef4444'},{l:'Independence',v:45,c:'#f59e0b'},{l:'Humility',v:99,c:'#22c55e'}],
+     scout:"Direct line to God. Receives instructions clearly. Cannot communicate them publicly. Needs a voice.",gp:true,stripe:'#C41E3A'},
+    {img:'p_aaron',name:'Aaron ben-Amram',nick:'"The Voice — Mic Always Hot"',pos:'SG',ht:"6'1\"",wt:'185 lbs',from:'Egypt · High Priest',yr:'Year 1',ovr:84,ovrC:'#22c55e',
+     stats:[{l:'SPEECH',v:'99'},{l:'PRESENCE',v:'96'},{l:'REVELTN',v:'12'},{l:'MIC CHK',v:'99'}],
+     bars:[{l:'Pub Speaking',v:99,c:'#22c55e'},{l:'Presence',v:96,c:'#22c55e'},{l:'Revelation',v:12,c:'#ef4444'},{l:'Independence',v:22,c:'#ef4444'},{l:'Humility',v:75,c:'#22c55e'}],
+     scout:"Exceptional communicator. Commanding presence. Does not receive direct revelation. Needs a signal.",gp:true,stripe:'#C9A84C'}
+   ],
+   isBothPick:true,
+   ann:{who:'EJ',img:'crew_ej',color:'#22c55e',quote:"Both of them. God took both of them."},
+   ann2:{who:'BARKLEY',img:'crew_barkley',color:'#f59e0b',quote:"You CANNOT do that! This is a DRAFT. You pick ONE. That's the RULES."},
+   ann3:{who:'SHAQ',img:'crew_shaq',color:'#3b82f6',quote:"I ran the Lakers with Kobe. Two stars. Different skills. Neither one alone. ...It works."},
+   rWhy:"Neither Moses nor Aaron was complete alone. Moses had the revelation and couldn't deliver it. Aaron had the voice and no revelation. <b>Together they covered what neither could cover alone.</b>",
+   rQuip:"\"Sometimes the team God builds doesn't fit the roster you were planning for.\"",
+   scripture:"\"He will speak to the people for you, and it will be as if he were your mouth.\" — Exodus 4:16",
+   revImgs:['p_shepherdMo','p_aaron']},
+
+  {id:'jazz',logo:'logo_nineveh',name:'Utah Jazz',city:'Salt Lake City, Utah',c1:'#002B5C',c2:'#F9A01B',round:'Round 9 of 9',isMod:true,rec:'Top-2 Pick',recC:'#22c55e',
+   need:"Jazz have a top-2 pick. Two elite prospects. Both are legitimately great. No obvious wrong answer. The whole state is watching.",
+   players:[
+    {img:'p_darryn',name:'Darryn Peterson',nick:'"D-Pete · BYU · Pure Scorer"',pos:'SG',ht:"6'4\"",wt:'195 lbs',from:'BYU · Big 12',yr:'2025 Draft',ovr:95,ovrC:'#22c55e',isPhoto:true,
+     stats:[{l:'SCORING',v:'97'},{l:'HANDLES',v:'94'},{l:'IQ',v:'92'},{l:'MOTOR',v:'99'}],
+     bars:[{l:'Scoring',v:97,c:'#22c55e'},{l:'Ball Handling',v:94,c:'#22c55e'},{l:'Basketball IQ',v:92,c:'#22c55e'},{l:'Motor',v:99,c:'#22c55e'},{l:'Character',v:95,c:'#22c55e'}],
+     scout:"Elite scorer. High motor. BYU product — character well-documented. Competes at every level.",gp:false,stripe:'#002B5C'},
+    {img:'p_dybantsa',name:'AJ Dybantsa',nick:'"The Hammer · Kansas · Physical Force"',pos:'PF',ht:"6'9\"",wt:'220 lbs',from:'Kansas · Big 12',yr:'2025 Draft',ovr:96,ovrC:'#22c55e',isPhoto:true,
+     stats:[{l:'ATHLETC',v:'99'},{l:'FINISH',v:'97'},{l:'DEFEND',v:'94'},{l:'CEILING',v:'99'}],
+     bars:[{l:'Athleticism',v:99,c:'#22c55e'},{l:'Finishing',v:97,c:'#22c55e'},{l:'Defense',v:94,c:'#22c55e'},{l:'Motor',v:96,c:'#22c55e'},{l:'Character',v:94,c:'#22c55e'}],
+     scout:"Physical freak. Finishes above the rim. Defensive versatility rare at this age. Generational ceiling.",gp:false,stripe:'#F9A01B'}
+   ],
+   isJazzPick:true,
+   ann:{who:'SHAQ',img:'crew_shaq',color:'#3b82f6',quote:"I'm taking Dybantsa. Big man always wins. Size wins. I said what I said."},
+   ann2:{who:'BARKLEY',img:'crew_barkley',color:'#f59e0b',quote:"Big man always wins."},
+   ann3:{who:'EJ',img:'crew_ej',color:'#22c55e',quote:"You two agree on something. This might be the sign we've been waiting for."},
+   rWhy:"For the first time tonight — both candidates are legitimately great. There's no obvious wrong answer. <b>And that's exactly where God's scouting report asks different questions.</b> Not just: who's more talented? But: who is this person becoming? What are they available for?",
+   rQuip:"\"The stats are close. The character questions are what matter.\"",
+   scripture:"\"To whom much is given, much will be required.\" — Luke 12:48",
+   disc:["Both are elite. What else should matter when evaluating someone for a major role?","If God were scouting the Jazz — what would His scouting report focus on?","What does it mean to be 'available' for what God has in mind for you?"]}
 ];
 
-// ── STATE ──────────────────────────────────────────────────────
-let scenarioIdx = 0;
-let currentScreen = 'intro';
-let votes = {0:0, 1:0};
-let totalVotes = 0;
-let playerCount = 0;
+const FINALE_QS=["Moses was in the desert 40 years before God called him. What might your 'desert' be preparing you for?","Ruth had no credentials, no leverage, no guarantee. What would it look like to say 'where you go I will go' to God?","Jonah was used despite his motives being wrong the whole time. What does that mean for you on your worst days?","David's character was built in fields where nobody was watching. What is being built in you when nobody is watching?","God's front office doesn't care about your overall rating. What do they care about?"];
 
-// ── WEBSOCKET ──────────────────────────────────────────────────
-const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-const ws = new WebSocket(`${proto}://${location.host}?host`);
+let scenarioIdx=0,currentScreen='intro',votes={0:0,1:0},totalVotes=0,playerCount=0;
+const proto=location.protocol==='https:'?'wss':'ws';
+const ws=new WebSocket(`${proto}://${location.host}?host`);
 
-ws.onmessage = (e) => {
-  const msg = JSON.parse(e.data);
-  if (msg.type === 'votes') {
-    votes = msg.votes;
-    totalVotes = msg.total;
-    updateVoteDisplay();
-  }
-  if (msg.type === 'playerCount') {
-    playerCount = msg.count;
-    document.getElementById('hc-players').textContent = playerCount + ' players';
-    document.getElementById('player-count-intro').textContent = playerCount + ' players connected';
-  }
+ws.onmessage=e=>{
+  const msg=JSON.parse(e.data);
+  if(msg.type==='votes'){votes=msg.votes;totalVotes=msg.total;updateVoteDisplay();}
+  if(msg.type==='playerCount'){playerCount=msg.count;document.getElementById('hc-players').textContent=playerCount+' players';document.getElementById('player-count-intro').textContent=playerCount+' players connected';}
 };
 
-// Set join URL
-window.addEventListener('load', () => {
-  const url = location.host;
-  document.getElementById('join-url').textContent = url;
-  buildCrewRow();
-  buildScenario();
-  updateControls();
-  generateQR('https://' + url);
+window.addEventListener('load',()=>{
+  const url=location.host;
+  document.getElementById('join-url').textContent=url;
+  buildCrewRow();buildScenario();updateControls();generateQR('https://'+url);
 });
 
-function generateQR(url) {
-  const script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-  script.onload = () => {
-    const div = document.createElement('div');
-    const canvas = document.getElementById('qr-canvas');
-    canvas.style.display = 'none';
-    canvas.parentNode.appendChild(div);
-    new QRCode(div, { text: url, width: 140, height: 140, colorDark:'#000000', colorLight:'#ffffff', correctLevel: QRCode.CorrectLevel.M });
-  };
-  document.head.appendChild(script);
+function generateQR(url){
+  const s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+  s.onload=()=>{const w=document.getElementById('qr-wrap');if(w)new QRCode(w,{text:url,width:140,height:140,colorDark:'#000',colorLight:'#fff',correctLevel:QRCode.CorrectLevel.M});};
+  document.head.appendChild(s);
 }
 
-function restartGame() {
-  scenarioIdx = 0;
-  votes = {0:0,1:0};
-  totalVotes = 0;
-  ws.send(JSON.stringify({ type:'host_advance', screen:'intro', scenarioIdx:0 }));
-  buildScenario();
-  showScreen('s-intro');
+function buildCrewRow(){
+  const crew=[{img:'crew_ej',name:'Ernie Johnson',role:'Host'},{img:'crew_kenny',name:'Kenny Smith',role:'Analyst'},{img:'crew_shaq',name:"Shaquille O'Neal",role:'Analyst'},{img:'crew_barkley',name:'Charles Barkley',role:'Analyst'}];
+  document.getElementById('crew-row').innerHTML=crew.map(c=>`<div class="crew-card"><img class="crew-img" src="${IMGS[c.img]}" alt="${c.name}"><div class="crew-name bbn">${c.name}</div><div class="crew-role bbc">${c.role}</div></div>`).join('');
 }
 
-// ── CREW ──────────────────────────────────────────────────────
-function buildCrewRow() {
-  const crew = [
-    { img:'crew_ej', name:'Ernie Johnson', role:'Host' },
-    { img:'crew_kenny', name:'Kenny Smith', role:'Analyst' },
-    { img:'crew_shaq', name:'Shaquille O\'Neal', role:'Analyst' },
-    { img:'crew_barkley', name:'Charles Barkley', role:'Analyst' },
-  ];
-  document.getElementById('crew-row').innerHTML = crew.map(c => `
-    <div class="crew-card">
-      <img class="crew-img" src="${IMGS[c.img]}" alt="${c.name}">
-      <div class="crew-name">${c.name}</div>
-      <div class="crew-role bbc">${c.role}</div>
-    </div>`).join('');
-}
-
-// ── SHOW SCREEN ────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  currentScreen = id;
-  document.getElementById('hc-scenario').textContent = SCENARIOS[scenarioIdx]?.name || 'Intro';
+  currentScreen=id.replace('s-','');
+  document.getElementById('hc-scenario').textContent=SCENARIOS[scenarioIdx]?.name||'Intro';
   updateControls();
 }
 
-// ── BUILD SCENARIO HEADER ──────────────────────────────────────
-function buildScenario() {
-  const s = SCENARIOS[scenarioIdx];
-  const stage = document.getElementById('scenario-stage');
-  const twist = s.isTwist ? `<div class="twist-pill">TWIST ROUND</div><br>` : s.isMod ? `<div class="twist-pill" style="background:#002B5C">MODERN SCENARIO</div><br>` : '';
-  stage.innerHTML = `
-    <div class="sc-logo-wrap">
-      <img class="sc-logo" src="${IMGS[s.logo]}" alt="${s.name}">
-      <div class="sc-logo-name bbn">${s.name}</div>
-      <div class="sc-logo-city bbc">${s.city}</div>
-    </div>
-    <div class="sc-content">
-      ${twist}
-      <div class="sc-round bbc">${s.round}</div>
-      <div class="sc-name bbn">${s.name}</div>
-      <div class="sc-need-lbl bbc">Roster Need</div>
-      <div class="sc-need bbc">${s.need}</div>
-      <div class="sc-record bbn" style="color:${s.recC};border-color:${s.recC}40;background:${s.recC}15">${s.rec}</div>
-      ${s.note ? `<div style="margin-top:14px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-style:italic;color:rgba(255,255,255,0.4)">${s.note}</div>` : ''}
-    </div>`;
+function buildScenario(){
+  const s=SCENARIOS[scenarioIdx];
+  const twist=s.isTwist?`<div class="twist-pill bbn">TWIST ROUND</div><br>`:s.isMod?`<div class="twist-pill bbn" style="background:#002B5C">MODERN SCENARIO</div><br>`:'';
+  document.getElementById('sc-logo-panel').innerHTML=`
+    <img class="sc-logo" src="${IMGS[s.logo]}" alt="${s.name}">
+    <div class="sc-logo-name bbn">${s.name}</div>
+    <div class="sc-logo-city bbc">${s.city}</div>
+    <div class="sc-record bbn" style="color:${s.recC};border-color:${s.recC};background:${s.recC}18">${s.rec}</div>`;
+  document.getElementById('sc-content-panel').innerHTML=`
+    ${twist}
+    <div class="sc-round bbc">${s.round}</div>
+    <div class="sc-name bbn">${s.name}</div>
+    <div class="sc-need-lbl bbc">Roster Need</div>
+    <div class="sc-need bbc">${s.need}</div>
+    ${s.note?`<div class="sc-note bbc">${s.note}</div>`:''}`;
 }
 
-// ── BUILD VOTING CARDS ────────────────────────────────────────
-function buildCards() {
-  const s = SCENARIOS[scenarioIdx];
-  votes = {0:0,1:0}; totalVotes = 0;
-  document.getElementById('voting-round').textContent = s.round;
-  document.getElementById('vote-live-count').textContent = '0';
-  document.getElementById('voting-status').textContent = 'Voting Open';
-
-  const stage = document.getElementById('cards-stage');
-  if (s.isRuth) {
-    stage.style.gridTemplateColumns = '1fr';
-    stage.style.maxWidth = '520px';
-    stage.style.margin = '0 auto';
+function buildCards(){
+  const s=SCENARIOS[scenarioIdx];
+  votes={0:0,1:0};totalVotes=0;
+  document.getElementById('voting-round').textContent=s.round;
+  document.getElementById('vote-live-count').textContent='0';
+  const stage=document.getElementById('cards-stage');
+  stage.className=s.isRuth?'cards-stage single':'cards-stage';
+  if(s.isRuth){
+    const ruthHtml=`<div class="ruth-outer"><div class="ruth-inner">
+      <div class="ruth-q bbn">Every rational free agent passed.</div>
+      <div class="ruth-p bbc">GM Naomi told her staff to find better teams. Orpah made the sensible call and went home. The Bethlehem Rebuilders had nothing to offer. One player signed anyway.</div>
+      <div class="ruth-verse bbc">"Where you go I will go. Where you die I will die. Your people shall be my people, and your God my God." — Ruth 1:16</div>
+    </div></div>`;
+    stage.innerHTML=ruthHtml+'<div style="display:flex;justify-content:center;padding:16px 0;border-top:1px solid rgba(255,255,255,0.07)">'+buildBigCard(s.players[0],s,0)+'</div>';
+    stage.style.display='flex';stage.style.flexDirection='column';
   } else {
-    stage.style.gridTemplateColumns = '1fr 1fr';
-    stage.style.maxWidth = '';
-    stage.style.margin = '0 auto';
+    stage.style.display='';stage.style.flexDirection='';
+    stage.innerHTML=s.players.map((p,i)=>buildBigCard(p,s,i)).join('');
   }
-  stage.innerHTML = s.players.map((p,i) => buildBigCard(p, s, i)).join('');
 }
 
-function buildBigCard(p, s, i) {
-  const bars = p.bars.map(b => `
-    <div class="br">
-      <span class="bl">${b.l}</span>
-      <div class="bt"><div class="bf" style="width:${Math.max(0,typeof b.v==='number'?b.v:0)}%;background:${b.c}"></div></div>
-      <span class="bn">${typeof b.v==='number'?Math.max(0,b.v):''}</span>
-    </div>`).join('');
-  const stats = p.stats.map(st => `<div class="s-c"><div class="s-v bbn">${st.v}</div><div class="s-l bbc">${st.l}</div></div>`).join('');
-  const imgClass = p.isPhoto ? 'bc-img' : 'bc-img';
+function buildBigCard(p,s,i){
+  const bars=p.bars.map(b=>`<div class="br"><span class="bl bbc">${b.l}</span><div class="bt"><div class="bf" style="width:${Math.max(0,typeof b.v==='number'?b.v:0)}%;background:${b.c}"></div></div><span class="bn bbc">${typeof b.v==='number'?Math.max(0,b.v):''}</span></div>`).join('');
+  const stats=p.stats.map(st=>`<div class="s-c"><div class="s-v bbn">${st.v}</div><div class="s-l bbc">${st.l}</div></div>`).join('');
   return `<div class="big-card" id="card-${i}">
-    <div class="bc-stripe" style="background:${p.stripe}"></div>
-    <div class="bc-body">
-      <img class="${imgClass}" src="${IMGS[p.img]}" alt="${p.name}" style="${p.isPhoto?'object-position:top center':'object-position:top'}">
-      <div class="bc-info">
-        <div class="bc-label bbc">Candidate ${i===0?'A':'B'}</div>
-        <div class="bc-name bbn">${p.name}</div>
-        <div class="bc-nick bbc">${p.nick}</div>
-        <div class="bc-vitals">${[p.pos,p.ht,p.wt].map(v=>`<span class="vital bbc">${v}</span>`).join('')}</div>
-        <div class="bc-from bbc">${p.from}</div>
-      </div>
-      <div class="bc-ovr">
-        <div class="ovr-n bbn" style="color:${p.ovrC}">${p.ovr}</div>
-        <div class="ovr-l bbc">OVR</div>
-      </div>
+    <div class="bc-img-col">
+      <div class="bc-stripe-left" style="background:${p.stripe}"></div>
+      <img class="bc-img" src="${IMGS[p.img]}" alt="${p.name}" style="${p.isPhoto?'object-position:center top':''}">
     </div>
-    <div class="card-div" style="height:1px;background:rgba(255,255,255,0.05);margin:0 16px"></div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,0.03)">${stats}</div>
-    <div class="bc-bars">${bars}</div>
-    <div style="padding:8px 18px 12px;border-top:1px solid rgba(255,255,255,0.05)">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:3px">Scout Report</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-style:italic;color:rgba(255,255,255,0.5);line-height:1.45">${p.scout}</div>
-    </div>
-    <div class="vote-bar-wrap" id="vote-wrap-${i}">
-      <div class="vote-pct bbn" id="vote-pct-${i}">—</div>
-      <div class="vote-pct-lbl bbc">of votes</div>
-      <div class="vote-bar-bg"><div class="vote-bar-fill" id="vote-bar-${i}" style="width:0%"></div></div>
+    <div class="bc-data-col">
+      <div class="bc-top-row">
+        <div><div class="bc-label bbc">Candidate ${i===0?'A':'B'}</div></div>
+        <div class="bc-ovr-block"><div class="ovr-n bbn" style="color:${p.ovrC}">${p.ovr}</div><div class="ovr-l bbc">OVR</div></div>
+      </div>
+      <div class="bc-name bbn">${p.name}</div>
+      <div class="bc-nick bbc">${p.nick}</div>
+      <div class="bc-vitals">${[p.pos,p.ht,p.wt].map(v=>`<span class="vital bbc">${v}</span>`).join('')}</div>
+      <div class="bc-from bbc">${p.from}</div>
+      <div class="bc-stats-row">${stats}</div>
+      <div class="bc-bars">${bars}</div>
+      <div class="bc-scout">${p.scout}</div>
+      <div class="vote-bar-section" id="vote-wrap-${i}">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <div class="vote-pct bbn" id="vote-pct-${i}">—</div>
+          <div class="vote-pct-lbl bbc">of votes</div>
+        </div>
+        <div class="vote-bar-bg"><div class="vote-bar-fill" id="vote-bar-${i}" style="width:0%;background:${p.stripe}"></div></div>
+      </div>
     </div>
   </div>`;
 }
 
-function updateVoteDisplay() {
-  document.getElementById('vote-live-count').textContent = totalVotes;
-  const total = (votes[0]||0) + (votes[1]||0);
-  [0,1].forEach(i => {
-    const v = votes[i]||0;
-    const pct = total > 0 ? Math.round(v/total*100) : 0;
-    const pctEl = document.getElementById(`vote-pct-${i}`);
-    const barEl = document.getElementById(`vote-bar-${i}`);
-    const cardEl = document.getElementById(`card-${i}`);
-    if (pctEl) pctEl.textContent = pct + '%';
-    if (barEl) barEl.style.width = pct + '%';
-    if (cardEl) {
-      cardEl.classList.toggle('leading', pct > 50);
-    }
+function updateVoteDisplay(){
+  document.getElementById('vote-live-count').textContent=totalVotes;
+  const total=(votes[0]||0)+(votes[1]||0);
+  [0,1].forEach(i=>{
+    const v=votes[i]||0,pct=total>0?Math.round(v/total*100):0;
+    const pe=document.getElementById(`vote-pct-${i}`),be=document.getElementById(`vote-bar-${i}`),ce=document.getElementById(`card-${i}`);
+    if(pe)pe.textContent=pct+'%';if(be)be.style.width=pct+'%';if(ce)ce.classList.toggle('leading',pct>50);
   });
 }
 
-// ── BUILD RESULTS ─────────────────────────────────────────────
-function buildResults() {
-  const s = SCENARIOS[scenarioIdx];
-  const total = (votes[0]||0) + (votes[1]||0);
-  const colors = ['#552583','#FDB927'];
-
-  document.getElementById('results-bars').innerHTML = s.players.map((p,i) => {
-    const v = votes[i]||0;
-    const pct = total > 0 ? Math.round(v/total*100) : 0;
+function buildResults(){
+  const s=SCENARIOS[scenarioIdx];
+  const total=(votes[0]||0)+(votes[1]||0);
+  document.getElementById('results-main').innerHTML=s.players.map((p,i)=>{
+    const v=votes[i]||0,pct=total>0?Math.round(v/total*100):0;
     return `<div class="res-candidate">
+      <img class="res-img" src="${IMGS[p.img]}" alt="${p.name}" style="width:180px;height:220px;${p.isPhoto?'object-position:center top':'object-position:top'}">
       <div class="res-name bbn">${p.name.split('"')[0]}</div>
       <div class="res-pct bbn" style="color:${p.stripe}">${pct}%</div>
       <div class="res-bar-bg"><div class="res-bar-fill" style="width:${pct}%;background:${p.stripe}"></div></div>
-      <div class="res-count bbc">${v} votes</div>
+      <div class="res-count bbc">${v} vote${v!==1?'s':''}</div>
     </div>`;
   }).join('');
-
-  const ann = s.ann;
-  let annHTML = `<div class="ann-who-row">
-    <img class="ann-photo" src="${IMGS[ann.img]}" alt="${ann.who}">
-    <div><div class="ann-name bbn" style="color:${ann.color}">${ann.who}</div><div class="ann-role bbc">Inside the NBA</div></div>
-  </div>
-  <div class="ann-quote bbc">${ann.quote}</div>`;
-
-  if (s.ann2) {
-    annHTML += `<div style="height:12px"></div><div class="ann-who-row">
-      <img class="ann-photo" src="${IMGS[s.ann2.img]}" alt="${s.ann2.who}">
-      <div><div class="ann-name bbn" style="color:${s.ann2.color}">${s.ann2.who}</div><div class="ann-role bbc">Inside the NBA</div></div>
-    </div><div class="ann-quote bbc">${s.ann2.quote}</div>`;
-  }
-  if (s.ann3) {
-    annHTML += `<div style="height:12px"></div><div class="ann-who-row">
-      <img class="ann-photo" src="${IMGS[s.ann3.img]}" alt="${s.ann3.who}">
-      <div><div class="ann-name bbn" style="color:${s.ann3.color}">${s.ann3.who}</div><div class="ann-role bbc">Inside the NBA</div></div>
-    </div><div class="ann-quote bbc">${s.ann3.quote}</div>`;
-  }
-
-  document.getElementById('announcer-box').innerHTML = annHTML;
+  const ann=s.ann;
+  const extras=[s.ann2,s.ann3].filter(Boolean);
+  document.getElementById('announcer-panel').innerHTML=`
+    <div class="ann-inner">
+      <img class="ann-photo" src="${IMGS[ann.img]}" alt="${ann.who}">
+      <div class="ann-right">
+        <div class="ann-name-row"><div class="ann-name bbn" style="color:${ann.color}">${ann.who}</div><div class="ann-role bbc">Inside the NBA</div></div>
+        <div class="ann-quote bbc">${ann.quote}</div>
+        ${extras.length?`<div class="ann-extras">${extras.map(a=>`<div class="ann-extra-pill bbc"><b style="color:${a.color}">${a.who}:</b> ${a.quote}</div>`).join('')}</div>`:''}
+      </div>
+    </div>`;
 }
 
-// ── BUILD REVEAL ──────────────────────────────────────────────
-function buildReveal() {
-  const s = SCENARIOS[scenarioIdx];
-  const gp = s.isBothPick ? s.players : s.players.filter(p=>p.gp);
-  const primary = gp[0];
-  document.getElementById('reveal-inner').innerHTML = `
-    <div class="rev-commissioner bbc">— Commissioner's Announcement —</div>
-    <div class="rev-pick-num bbn">${s.isBothPick ? 'Both' : '#1 Overall Pick'}</div>
-    <img class="rev-img" src="${IMGS[primary.img]}" alt="${primary.name}" style="${primary.isPhoto?'object-position:top center':'object-position:top'}">
-    <div class="rev-player-name bbn">${s.isBothPick ? 'Moses & Aaron' : primary.name}</div>
+function buildReveal(){
+  const s=SCENARIOS[scenarioIdx];
+  const revImgs=s.revImgs||[];
+  const imgHTML=revImgs.map(k=>{const p=s.players.find(p=>p.img===k);return `<img class="rev-img" src="${IMGS[k]}" alt="" style="${p?.isPhoto?'object-position:center top':'object-position:top'}">`}).join('');
+  const pickLabel=s.isBothPick?'Both Picks':s.isJazzPick?'The Jazz Pick':'#1 Overall Pick';
+  const nameLabel=s.isBothPick?'Moses & Aaron':s.isJazzPick?'The Utah Jazz Front Office':s.players.find(p=>p.gp)?.name||'';
+  document.getElementById('reveal-inner').innerHTML=`
+    <div class="rev-comm bbc">— Commissioner's Announcement —</div>
+    <div class="rev-pick-num bbn">${pickLabel}</div>
+    <div class="rev-imgs-row">${imgHTML}</div>
+    <div class="rev-player-name bbn">${nameLabel}</div>
     <p class="rev-why">${s.rWhy}</p>
     <div class="rev-quip bbc">${s.rQuip}</div>`;
 }
 
-// ── BUILD SCRIPTURE ───────────────────────────────────────────
-function buildScripture() {
-  const s = SCENARIOS[scenarioIdx];
-  const nextS = SCENARIOS[scenarioIdx+1];
-  document.getElementById('scripture-inner').innerHTML = `
+function buildScripture(){
+  const s=SCENARIOS[scenarioIdx],nextS=SCENARIOS[scenarioIdx+1];
+  document.getElementById('scripture-inner').innerHTML=`
     <div class="sc-icon">📖</div>
-    <div class="scripture-lbl bbc">God's Wisdom</div>
-    <div class="scripture-text bbc">${s.scripture}</div>
-    ${nextS ? `<div class="next-up bbc">Next: ${nextS.name}</div>` : '<div class="next-up bbc" style="color:var(--gold)">Final Round Complete</div>'}`;
+    <div class="sc-lbl bbc">God's Wisdom</div>
+    <div class="sc-text bbc">${s.scripture}</div>
+    ${nextS?`<div class="sc-next bbc">Next: ${nextS.name} →</div>`:`<div class="sc-next bbc" style="color:var(--gold)">That's the full draft class. One question left.</div>`}`;
 }
 
-// ── BUILD DISCUSSION ──────────────────────────────────────────
-function buildDiscussion() {
-  const s = SCENARIOS[scenarioIdx];
-  if (!s.disc) return;
-  document.getElementById('discuss-inner').innerHTML = `
-    <div class="discuss-title bbn">Discussion</div>
-    ${s.disc.map(q=>`<div class="discuss-q bbc">${q}</div>`).join('')}`;
+function buildDiscussion(){
+  const s=SCENARIOS[scenarioIdx];
+  if(!s.disc)return;
+  document.getElementById('discuss-inner').innerHTML=`<div class="discuss-title bbn">Discussion</div>${s.disc.map(q=>`<div class="discuss-q bbc">${q}</div>`).join('')}`;
 }
 
-// ── HOST CONTROLS ─────────────────────────────────────────────
-function advance(screen, extra={}) {
-  ws.send(JSON.stringify({ type:'host_advance', screen, scenarioIdx, ...extra }));
+function buildFinale(){
+  document.getElementById('finale-qs').innerHTML=FINALE_QS.map(q=>`<div class="finale-q">${q}</div>`).join('');
+}
+
+function advance(screen){
+  ws.send(JSON.stringify({type:'host_advance',screen,scenarioIdx}));
   showScreen('s-'+screen);
-  if (screen==='voting') { buildCards(); }
-  if (screen==='results') { buildResults(); }
-  if (screen==='reveal') { buildReveal(); }
-  if (screen==='scripture') { buildScripture(); }
-  if (screen==='discuss') { buildDiscussion(); }
+  if(screen==='voting')buildCards();
+  if(screen==='results')buildResults();
+  if(screen==='reveal')buildReveal();
+  if(screen==='scripture')buildScripture();
+  if(screen==='discuss')buildDiscussion();
+  if(screen==='finale')buildFinale();
 }
 
-function nextScenario() {
-  if (scenarioIdx < SCENARIOS.length-1) {
-    scenarioIdx++;
-    buildScenario();
-    advance('scenario');
-  }
+function nextOrEnd(){
+  if(scenarioIdx<SCENARIOS.length-1){scenarioIdx++;buildScenario();advance('scenario');}
+  else advance('finale');
 }
 
-function updateControls() {
-  const s = SCENARIOS[scenarioIdx];
-  const btns = document.getElementById('hc-buttons');
-  const isRuth = s?.isRuth;
-  const hasDisc = s?.disc;
+function restartGame(){
+  scenarioIdx=0;votes={0:0,1:0};totalVotes=0;
+  ws.send(JSON.stringify({type:'host_advance',screen:'intro',scenarioIdx:0}));
+  buildScenario();showScreen('s-intro');
+}
 
-  const map = {
-    'intro':     `<button class="btn btn-gold" onclick="advance('scenario')">Start Draft</button>`,
-    'yourturn':  `<button class="btn btn-outline" onclick="restartGame()">Restart Game</button>`,
-    'scenario':  `<button class="btn btn-gold" onclick="advance('voting')">Open Voting</button>`,
-    'voting':    `<button class="btn btn-red" onclick="advance('results')">Close Voting</button>`,
-    'results':   `<button class="btn btn-gold" onclick="advance('reveal')">Reveal God's Pick</button>`,
-    'reveal':    `<button class="btn btn-gold" onclick="advance('scripture')">Show Scripture</button>`,
-    'scripture': hasDisc
-      ? `<button class="btn btn-outline" onclick="advance('discuss')">Discussion</button><button class="btn btn-gold" onclick="nextOrEnd()">Next Team</button>`
-      : `<button class="btn btn-gold" onclick="nextOrEnd()">Next Team</button>`,
-    'discuss':   `<button class="btn btn-gold" onclick="nextOrEnd()">Next Team</button>`,
+function updateControls(){
+  const s=SCENARIOS[scenarioIdx];
+  const map={
+    'intro':`<button class="btn btn-gold bbn" onclick="advance('scenario')">Start Draft</button>`,
+    'scenario':`<button class="btn btn-gold bbn" onclick="advance('voting')">${s?.isRuth?'Show Her Story':'Open Voting'}</button>`,
+    'voting':`<button class="btn btn-red bbn" onclick="advance('results')">Close Voting</button>`,
+    'results':`<button class="btn btn-gold bbn" onclick="advance('reveal')">Reveal God's Pick</button>`,
+    'reveal':`<button class="btn btn-gold bbn" onclick="advance('scripture')">Show Scripture</button>`,
+    'scripture':s?.disc
+      ?`<button class="btn btn-outline bbn" onclick="advance('discuss')">Discussion</button><button class="btn btn-gold bbn" onclick="nextOrEnd()">Next Team</button>`
+      :`<button class="btn btn-gold bbn" onclick="nextOrEnd()">Next Team</button>`,
+    'discuss':`<button class="btn btn-gold bbn" onclick="nextOrEnd()">Next Team</button>`,
+    'finale':`<button class="btn btn-outline bbn" onclick="restartGame()">Restart Game</button>`,
   };
-
-  if (isRuth && currentScreen === 'scenario') {
-    btns.innerHTML = `<button class="btn btn-gold" onclick="advance('reveal')">Reveal Her Story</button>`;
-  } else {
-    btns.innerHTML = map[currentScreen.replace('s-','')] || '';
-  }
+  document.getElementById('hc-buttons').innerHTML=map[currentScreen]||'';
 }
-
-function nextOrEnd() {
-  if (scenarioIdx < SCENARIOS.length-1) {
-    scenarioIdx++;
-    buildScenario();
-    advance('scenario');
-  } else {
-    advance('yourturn');
-  }
-}
-
-// Override showScreen to also send WS
-const _show = showScreen;
-showScreen = function(id) {
-  _show(id);
-  updateControls();
-};
 </script>
