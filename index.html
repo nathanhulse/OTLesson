@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#0d2350">
+<title>Dare to Be a Daniel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--lapis:#0d2350;--night:#081633;--gold:#e8b84a;--gold2:#f6d684;--sand:#f3e6c8;--ink:#0b1430;
+  --red:#e2384d;--blue:#1f6fe0;--yellow:#e9a515;--green:#22a45d}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:Nunito,system-ui,sans-serif;color:#fff;background:radial-gradient(600px 500px at 50% -10%,#1d3f86,var(--lapis) 50%,var(--night));
+  display:flex;flex-direction:column;min-height:100dvh;user-select:none}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(0,0,0,.25);font-weight:900}
+.top .me{display:flex;gap:8px;align-items:center;font-size:18px}
+.top .sc{color:var(--gold2)}
+main{flex:1;display:flex;flex-direction:column;padding:16px;gap:14px}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px}
+h1{font-family:Cinzel,serif;font-size:34px;line-height:1;color:var(--gold2)}
+.sub{color:var(--sand);font-weight:800}
+input{width:100%;font:inherit;font-size:22px;font-weight:900;padding:14px 16px;border-radius:12px;border:3px solid var(--gold);text-align:center;background:#fff;color:var(--ink)}
+.icons{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%}
+.ic{font-size:32px;padding:8px 0;border-radius:12px;background:rgba(255,255,255,.08);border:3px solid transparent;text-align:center}
+.ic.sel{background:rgba(232,184,74,.25);border-color:var(--gold)}
+.go{width:100%;font:inherit;font-size:22px;font-weight:900;padding:16px;border:0;border-radius:14px;background:var(--gold);color:var(--ink);box-shadow:0 5px 0 #a87a22}
+.go:disabled{opacity:.4}
+.label{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:900;align-self:flex-start}
+.big{font-size:80px;line-height:1}
+.qtext{font-size:20px;font-weight:900;line-height:1.25;text-align:center}
+.qn{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:900;text-align:center}
+.grid{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px}
+.a{border:0;border-radius:16px;color:#fff;font:inherit;font-weight:900;font-size:16px;line-height:1.2;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 6px 0 rgba(0,0,0,.3)}
+.a .sh{font-size:40px}
+.a:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.3)}
+.a0{background:var(--red)}.a1{background:var(--blue)}.a2{background:var(--yellow)}.a3{background:var(--green)}
+.res{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:24px}
+.res.ok{background:linear-gradient(#26b866,#167a43)}.res.no{background:linear-gradient(#e2384d,#9b1f2f)}.res.poll{background:linear-gradient(#1f6fe0,#123f86)}
+.res h2{font-size:42px;font-weight:900}.res .pts{font-size:30px;font-weight:900;background:rgba(0,0,0,.2);padding:8px 18px;border-radius:999px}
+.res .ans{font-size:18px;font-weight:800;opacity:.95;max-width:340px}
+.res .rk{font-size:18px;font-weight:800;opacity:.9}
+.pulse{animation:pulse 1.4s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.08)}}
+.medal{font-size:110px}
+</style>
+</head>
+<body>
+<div class="top" id="top" style="display:none"><div class="me" id="meName"></div><div class="sc" id="meScore"></div></div>
+<main id="main"></main>
+<script>
+const ICONS = ["🦁","🔥","👑","📜","🥕","🍇","🏺","✋","🕊️","⭐","🌙","🐫","🌴","🛡️","🎺","🐂","🦅","💧","🙏","🪔"];
+const SHAPES = ["▲","◆","●","■"];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const store = { get(k){ try { return localStorage.getItem(k); } catch { return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch {} } };
+
+let id = store.get("dan_id") || Math.random().toString(36).slice(2) + Date.now().toString(36);
+store.set("dan_id", id);
+let name = store.get("dan_name") || "", icon = store.get("dan_icon") || ICONS[0];
+let joined = false, ws = null, S = null, viewKey = "";
+
+function connect() {
+  ws = new WebSocket((location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/");
+  ws.onopen = () => { if (joined) ws.send(JSON.stringify({ type: "join", id, name, icon })); };
+  ws.onclose = () => setTimeout(connect, 1200);
+  ws.onmessage = (e) => {
+    const m = JSON.parse(e.data);
+    if (m.type === "kicked") { joined = false; viewKey = ""; renderJoin(); return; }
+    if (m.type === "joined") { joined = true; }
+    if (m.type === "state") { S = m; if (joined) render(); else if (!$("nameIn")) renderJoin(); }
+  };
+}
+
+function renderJoin() {
+  $("top").style.display = "none";
+  $("main").innerHTML = `
+    <div class="center" style="justify-content:flex-start;padding-top:10px">
+      <div class="sub">Daniel 1–7</div>
+      <h1>Dare to Be<br>a Daniel</h1>
+      <div class="label" style="margin-top:12px">Your name</div>
+      <input id="nameIn" maxlength="16" placeholder="Type your name" value="${esc(name)}" autocomplete="off">
+      <div class="label">Pick your icon</div>
+      <div class="icons">${ICONS.map((e) => `<button class="ic ${e === icon ? "sel" : ""}" data-e="${e}">${e}</button>`).join("")}</div>
+      <button class="go" id="joinBtn">Join the King's Court</button>
+    </div>`;
+  document.querySelectorAll(".ic").forEach((b) => b.onclick = () => {
+    icon = b.dataset.e; document.querySelectorAll(".ic").forEach((x) => x.classList.toggle("sel", x === b));
+  });
+  const go = () => {
+    name = $("nameIn").value.trim().slice(0, 16);
+    if (!name) { $("nameIn").focus(); return; }
+    store.set("dan_name", name); store.set("dan_icon", icon);
+    joined = true;
+    ws.send(JSON.stringify({ type: "join", id, name, icon }));
+    if (navigator.vibrate) navigator.vibrate(30);
+  };
+  $("joinBtn").onclick = go;
+  $("nameIn").onkeydown = (e) => { if (e.key === "Enter") go(); };
+}
+
+function header() {
+  $("top").style.display = "flex";
+  $("meName").innerHTML = `<span style="font-size:24px">${esc(icon)}</span>${esc(name)}`;
+  $("meScore").textContent = S.me ? `${S.me.score.toLocaleString()} pts` : "";
+}
+
+function render() {
+  header();
+  const k = [S.phase, S.kind, S.question, S.myChoice, S.rank].join("|");
+  if (k === viewKey) return; viewKey = k;
+  const M = $("main");
+  if (S.phase === "lobby") {
+    M.innerHTML = `<div class="center"><div class="big pulse">${esc(icon)}</div><h1>You're in!</h1><div class="sub">Find your name on the big screen.<br>The game starts soon.</div></div>`;
+    return;
+  }
+  if (S.phase === "item" && S.kind === "story") {
+    M.innerHTML = `<div class="center"><div class="big">👀</div><h1>Eyes on the screen</h1><div class="sub">Story time — get ready to talk about it.</div></div>`;
+    return;
+  }
+  if (S.phase === "item") {
+    if (S.myChoice !== null && S.myChoice !== undefined) {
+      M.innerHTML = `<div class="center"><div class="big pulse">🔒</div><h1>Locked in!</h1><div class="sub">You picked ${SHAPES[S.myChoice]}<br>Waiting for everyone else…</div></div>`;
+      return;
+    }
+    M.innerHTML = `
+      <div class="qn">${S.kind === "poll" ? "Poll — no wrong answers" : `Question ${S.qNum} of ${S.qTotal}`}</div>
+      <div class="qtext">${esc(S.question)}</div>
+      <div class="grid">${S.answers.map((a, i) => `<button class="a a${i}" data-i="${i}"><span class="sh">${SHAPES[i]}</span>${esc(a)}</button>`).join("")}</div>`;
+    document.querySelectorAll(".a").forEach((b) => b.onclick = () => {
+      ws.send(JSON.stringify({ type: "answer", choice: Number(b.dataset.i) }));
+      if (navigator.vibrate) navigator.vibrate(40);
+    });
+    return;
+  }
+  if (S.phase === "reveal") {
+    if (S.kind === "story") { M.innerHTML = ""; return; }
+    if (S.kind === "poll") {
+      M.innerHTML = `<div class="res poll"><div class="big">🗳️</div><h2>Thanks for voting!</h2><div class="ans">Look at the screen to see how everyone answered.</div></div>`;
+      return;
+    }
+    const none = S.myChoice === null || S.myChoice === undefined;
+    const ok = !none && S.myChoice === S.correct;
+    M.innerHTML = `<div class="res ${ok ? "ok" : "no"}">
+      <div class="big">${ok ? "✅" : none ? "⏰" : "❌"}</div>
+      <h2>${ok ? "Correct!" : none ? "Time's up!" : "Not quite"}</h2>
+      ${ok ? `<div class="pts">+${S.gained}</div>` : `<div class="ans">Answer: ${SHAPES[S.correct]} ${esc(S.correctText)}</div>`}
+      <div class="rk">You're #${S.rank} of ${S.of}</div></div>`;
+    if (navigator.vibrate) navigator.vibrate(ok ? [40, 60, 40] : 200);
+    return;
+  }
+  if (S.phase === "leaderboard") {
+    M.innerHTML = `<div class="center"><div class="big">📜</div><h1>You're #${S.rank}</h1><div class="sub">of ${S.of} players · ${S.me ? S.me.score.toLocaleString() : 0} pts</div></div>`;
+    return;
+  }
+  if (S.phase === "final") {
+    const medal = ["🥇","🥈","🥉"][S.rank - 1] || "🦁";
+    M.innerHTML = `<div class="center"><div class="medal">${medal}</div><h1>${S.rank <= 3 ? "On the podium!" : "Well done!"}</h1>
+      <div class="sub">You finished #${S.rank} of ${S.of}<br>${S.me ? S.me.score.toLocaleString() : 0} points</div>
+      <div class="sub" style="margin-top:14px;font-style:italic;opacity:.85">"Be strong and of a good courage."<br>— Joshua 1:9</div></div>`;
+  }
+}
+
+renderJoin();
+connect();
+</script>
+</body>
+</html>

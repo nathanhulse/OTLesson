@@ -1,0 +1,17 @@
+{
+  "name": "dare-to-be-a-daniel",
+  "version": "1.0.0",
+  "description": "Kahoot-style phone quiz for Come, Follow Me: Daniel 1-7",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "qrcode": "^1.5.4",
+    "ws": "^8.17.0"
+  }
+}

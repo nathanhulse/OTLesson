@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dare to Be a Daniel — Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--lapis:#0d2350;--night:#081633;--gold:#e8b84a;--gold2:#f6d684;--sand:#f3e6c8;--ink:#0b1430;--green:#22a45d;
+  --red:#e2384d;--blue:#1f6fe0;--yellow:#e9a515}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Nunito,system-ui,sans-serif;color:#fff;min-height:100vh;
+  background:radial-gradient(1200px 700px at 50% -10%,#1d3f86 0%,var(--lapis) 45%,var(--night) 100%) fixed}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:22px 36px 16px;
+  background:linear-gradient(var(--night) 70%,transparent)}
+h1{font-family:Cinzel,serif;font-size:clamp(30px,3.4vw,52px);color:var(--gold2);line-height:1}
+.eyebrow{font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-size:14px;margin-bottom:6px}
+.tools{display:flex;gap:10px}
+.tools button{font:inherit;font-weight:900;font-size:15px;padding:10px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;cursor:pointer}
+.tools button.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+main{padding:6px 36px 60px}
+.section{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin:18px 0 2px;font-family:Cinzel,serif;font-size:26px;color:var(--gold2)}
+.section::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,rgba(232,184,74,.6),transparent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}
+.card{background:#fff;color:var(--ink);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .15s}
+.card:hover{transform:translateY(-3px)}
+.thumb{height:170px;background:#0d2350 center/cover no-repeat;position:relative}
+.thumb .num{position:absolute;left:12px;top:12px;background:var(--gold);color:var(--ink);font-weight:900;border-radius:999px;padding:4px 12px;font-size:16px}
+.thumb .ref{position:absolute;right:12px;top:12px;background:rgba(8,22,51,.8);color:var(--gold2);font-weight:800;border-radius:999px;padding:4px 12px;font-size:13px}
+.body{padding:14px 18px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.q{font-size:19px;font-weight:900;line-height:1.25}
+.ans{background:#e8f7ee;border-left:5px solid var(--green);border-radius:8px;padding:8px 12px;font-weight:900;color:#11663a;font-size:16px}
+.ans.poll{background:#e9f0fd;border-color:var(--blue);color:#173f86;font-weight:800}
+.others{font-size:14px;color:#5b6475;line-height:1.4}
+.others s{text-decoration-color:rgba(226,56,77,.6)}
+.ex{font-size:14.5px;line-height:1.45;color:#2b3346;font-weight:700}
+.hideAns .ans,.hideAns .ex,.hideAns .others{display:none}
+.hideAns .opts{display:block}
+.opts{display:none;font-size:15px;font-weight:800;color:#2b3346;line-height:1.6}
+/* zoom view */
+.zoom{position:fixed;inset:0;z-index:20;background:rgba(4,10,26,.96);display:none;grid-template-columns:1fr 1fr;gap:40px;padding:48px 60px 80px;align-items:center}
+.zoom.show{display:grid}
+.zoom img{width:100%;max-height:78vh;object-fit:contain;border-radius:16px;border:3px solid rgba(232,184,74,.55)}
+.zoom .zq{font-size:clamp(28px,3vw,46px);font-weight:900;line-height:1.15;margin:8px 0 22px}
+.zoom .zlist{display:flex;flex-direction:column;gap:10px}
+.zoom .zo{border-radius:12px;padding:12px 18px;font-size:clamp(17px,1.6vw,24px);font-weight:900;display:flex;gap:12px;align-items:center;opacity:.35}
+.zoom .zo.c0{background:var(--red)}.zoom .zo.c1{background:var(--blue)}.zoom .zo.c2{background:var(--yellow)}.zoom .zo.c3{background:var(--green)}
+.zoom .zo.right{opacity:1;outline:4px solid #fff}
+.zoom.poll .zo,.zoom.hidden .zo{opacity:1;outline:0}
+.zoom .zex{margin-top:20px;background:#fff;color:var(--ink);border-radius:14px;padding:14px 20px;font-size:clamp(16px,1.4vw,22px);line-height:1.4;font-weight:700}
+.zoom.hidden .zex{display:none}
+.znav{position:fixed;bottom:18px;left:0;right:0;display:flex;justify-content:center;gap:12px;z-index:21}
+.znav button{font:inherit;font-weight:900;font-size:16px;padding:10px 20px;border-radius:10px;border:0;cursor:pointer;background:var(--gold);color:var(--ink)}
+.znav button.g{background:rgba(255,255,255,.12);color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="eyebrow">Come, Follow Me · Daniel 1–7 · Review</div><h1>Every Question, Together</h1></div>
+  <div class="tools">
+    <button id="hideBtn">Hide answers</button>
+    <button id="storyBtn" class="on">Story slides</button>
+  </div>
+</header>
+<main><div class="grid" id="grid"></div></main>
+
+<div class="zoom" id="zoom"><div id="zArt"></div><div id="zText"></div></div>
+<div class="znav" id="znav" style="display:none">
+  <button class="g" id="zPrev">◀ Prev</button>
+  <button id="zShow">Show answer</button>
+  <button class="g" id="zNext">Next ▶</button>
+  <button class="g" id="zClose">✕ Close</button>
+</div>
+
+<script>
+const SHAPES = ["▲","◆","●","■"];
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const DURA = "/dura.svg";
+let deck = [], items = [], z = -1, hideAll = false, showStories = true;
+const src = (a) => a === "dura" ? DURA : a;
+
+fetch("/deck.json").then((r) => r.json()).then((d) => { deck = d; render(); });
+
+function render() {
+  const g = $("grid"); let html = "", qn = 0; items = [];
+  deck.forEach((it) => {
+    if (it.type === "story") {
+      if (!showStories) return;
+      html += `<div class="section">${esc(it.title)}</div>`;
+      return;
+    }
+    const n = it.type === "q" ? ++qn : null;
+    const i = items.push({ ...it, n }) - 1;
+    const right = it.type === "q" ? it.answers[it.correct] : null;
+    html += `<div class="card" data-i="${i}">
+      <div class="thumb" style="background-image:url('${esc(src(it.art))}')"><span class="num">${n ? "Q" + n : "Poll"}</span><span class="ref">${esc(it.eyebrow)}</span></div>
+      <div class="body">
+        <div class="q">${esc(it.question)}</div>
+        <div class="opts">${it.answers.map((a, k) => `${SHAPES[k]} ${esc(a)}`).join("<br>")}</div>
+        ${it.type === "q"
+          ? `<div class="ans">✓ ${esc(right)}</div><div class="others">${it.answers.filter((_, k) => k !== it.correct).map((a) => `<s>${esc(a)}</s>`).join(" · ")}</div>`
+          : `<div class="ans poll">Poll: ${it.answers.map(esc).join(" · ")}</div>`}
+        <div class="ex">${esc(it.explain)}</div>
+      </div></div>`;
+  });
+  g.innerHTML = html;
+  g.classList.toggle("hideAns", hideAll);
+  g.querySelectorAll(".card").forEach((c) => c.onclick = () => open(+c.dataset.i));
+}
+
+function open(i) {
+  z = (i + items.length) % items.length;
+  const it = items[z];
+  const zoom = $("zoom");
+  zoom.className = "zoom show" + (it.type === "poll" ? " poll" : "") + (hideAll && it.type === "q" ? " hidden" : "");
+  $("zArt").innerHTML = `<img src="${esc(src(it.art))}" alt="${esc(it.caption)}">`;
+  $("zText").innerHTML = `<div class="eyebrow">${it.n ? "Question " + it.n : "Poll"} · ${esc(it.eyebrow)}</div>
+    <div class="zq">${esc(it.question)}</div>
+    <div class="zlist">${it.answers.map((a, k) => `<div class="zo c${k} ${it.type === "q" && k === it.correct ? "right" : ""}"><span>${SHAPES[k]}</span>${esc(a)}</div>`).join("")}</div>
+    <div class="zex">${esc(it.explain)}</div>`;
+  $("znav").style.display = "flex";
+  $("zShow").style.display = zoom.classList.contains("hidden") ? "" : "none";
+}
+function close() { $("zoom").className = "zoom"; $("znav").style.display = "none"; z = -1; }
+$("zPrev").onclick = () => open(z - 1);
+$("zNext").onclick = () => open(z + 1);
+$("zClose").onclick = close;
+$("zShow").onclick = () => { $("zoom").classList.remove("hidden"); $("zShow").style.display = "none"; };
+$("hideBtn").onclick = () => { hideAll = !hideAll; $("hideBtn").classList.toggle("on", hideAll); $("hideBtn").textContent = hideAll ? "Answers hidden" : "Hide answers"; render(); };
+$("storyBtn").onclick = () => { showStories = !showStories; $("storyBtn").classList.toggle("on", showStories); render(); };
+document.addEventListener("keydown", (e) => {
+  if (z < 0) return;
+  if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); open(z + 1); }
+  if (e.key === "ArrowLeft") open(z - 1);
+  if (e.key === "Escape") close();
+  if (e.key === "Enter") $("zShow").click();
+});
+</script>
+</body>
+</html>

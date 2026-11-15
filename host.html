@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dare to Be a Daniel — Host</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<script src="/dura.js"></script>
+<style>
+:root{
+  --lapis:#0d2350; --lapis2:#14306b; --night:#081633; --gold:#e8b84a; --gold2:#f6d684; --sand:#f3e6c8;
+  --red:#e2384d; --blue:#1f6fe0; --yellow:#e9a515; --green:#22a45d; --ink:#0b1430;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Nunito,system-ui,sans-serif;color:#fff;overflow:hidden;
+  background:radial-gradient(1200px 700px at 50% -10%,#1d3f86 0%,var(--lapis) 45%,var(--night) 100%);}
+/* Ishtar-gate tile border */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+   repeating-linear-gradient(90deg,transparent 0 46px,rgba(232,184,74,.10) 46px 48px),
+   repeating-linear-gradient(0deg,transparent 0 22px,rgba(255,255,255,.035) 22px 24px);
+  mask:linear-gradient(#000 0 10px,transparent 10px calc(100% - 10px),#000 calc(100% - 10px));}
+.cinzel{font-family:Cinzel,serif}
+#app{position:fixed;inset:0 0 64px 0;display:flex;flex-direction:column;padding:28px 44px 18px}
+.eyebrow{font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-size:clamp(13px,1.3vw,18px)}
+button{font-family:inherit;cursor:pointer;border:0}
+
+/* ── lobby ── */
+.lobby{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.lobby h1{font-family:Cinzel,serif;font-weight:800;font-size:clamp(46px,6.2vw,104px);line-height:.95;
+  background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,#b9822a);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.lobby .sub{font-size:clamp(18px,1.9vw,28px);color:var(--sand);margin:14px 0 26px;font-weight:700}
+.joinbox{display:flex;gap:26px;align-items:center;background:rgba(255,255,255,.07);border:2px solid rgba(232,184,74,.45);border-radius:22px;padding:20px 24px;width:max-content;max-width:100%}
+#qr{background:#fff;padding:12px;border-radius:14px;line-height:0}
+.joinlabel{font-size:18px;color:var(--sand);font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.joinurl{font-size:clamp(26px,2.8vw,44px);font-weight:900;color:#fff;word-break:break-all}
+.count{margin-top:6px;color:var(--gold2);font-weight:800;font-size:20px}
+.rosterwrap{height:100%;display:flex;flex-direction:column;min-height:0}
+.roster{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;overflow:hidden;flex:1;padding-top:8px}
+.chip{display:flex;align-items:center;gap:8px;background:#fff;color:var(--ink);border-radius:999px;padding:8px 16px 8px 10px;font-weight:900;font-size:22px;
+  animation:pop .45s cubic-bezier(.2,1.6,.4,1) both;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.chip .em{font-size:28px}
+.chip.off{opacity:.4}
+.empty{color:rgba(255,255,255,.5);font-size:22px;font-weight:700}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ── story ── */
+.story{flex:1;display:grid;grid-template-columns:1.15fr 1fr;gap:40px;min-height:0;align-items:center}
+.art{position:relative;height:100%;max-height:calc(100vh - 150px);display:flex;flex-direction:column;justify-content:center;min-height:0}
+.art .frame{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;border-radius:18px;overflow:hidden;
+  background:rgba(0,0,0,.25);border:3px solid rgba(232,184,74,.55);box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.art img,.art svg{width:100%;height:100%;object-fit:contain;display:block}
+.art .cap{margin-top:8px;font-size:14px;color:rgba(243,230,200,.75);font-style:italic;text-align:center}
+.ph{padding:30px;text-align:center;color:var(--sand);font-size:22px;font-weight:800}
+.story h2{font-family:Cinzel,serif;font-size:clamp(36px,4.2vw,70px);line-height:1.02;margin:8px 0 18px;color:#fff}
+.story .body{font-size:clamp(19px,1.75vw,28px);line-height:1.45;color:#eef2ff}
+.prompt{margin-top:24px;background:rgba(232,184,74,.13);border-left:6px solid var(--gold);border-radius:12px;padding:16px 20px;
+  font-size:clamp(18px,1.6vw,25px);line-height:1.4;color:var(--gold2);font-weight:800}
+.prompt b{display:block;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+
+/* ── question ── */
+.qtop{display:flex;align-items:flex-start;gap:24px}
+.qtop .qt{flex:1}
+.qtext{font-size:clamp(28px,3.2vw,54px);font-weight:900;line-height:1.12;margin-top:6px;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.qmid{flex:1;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;min-height:0;margin:14px 0}
+.qmid .art{height:100%;max-height:none}
+.side{display:flex;flex-direction:column;align-items:center;gap:6px;width:150px}
+.ring{position:relative;width:132px;height:132px}
+.ring svg{transform:rotate(-90deg)}
+.ring .n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900}
+.big{font-size:54px;font-weight:900;line-height:1}
+.small{font-size:15px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--sand)}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tile{position:relative;display:flex;align-items:center;gap:16px;border-radius:14px;padding:16px 20px;min-height:84px;
+  font-size:clamp(18px,1.8vw,29px);font-weight:900;line-height:1.15;box-shadow:0 6px 0 rgba(0,0,0,.28);overflow:hidden;transition:opacity .4s,transform .4s}
+.tile .sh{font-size:34px;flex:none;width:40px;text-align:center;filter:drop-shadow(0 2px 0 rgba(0,0,0,.25))}
+.tile .tx{position:relative;z-index:1;flex:1}
+.tile .ct{position:relative;z-index:1;font-size:30px;font-weight:900;flex:none}
+.tile .bar{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.18);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.t0{background:var(--red)}.t1{background:var(--blue)}.t2{background:var(--yellow)}.t3{background:var(--green)}
+.tile.dim{opacity:.28;transform:scale(.97)}
+.tile.win{outline:5px solid #fff;transform:scale(1.02)}
+.tile.win::after{content:"✓";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:44px;z-index:2;opacity:.0}
+.explain{background:rgba(255,255,255,.95);color:var(--ink);border-radius:16px;padding:16px 22px;font-size:clamp(17px,1.55vw,24px);line-height:1.4;font-weight:700;
+  animation:rise .5s ease both;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.explain b{color:#9a6b12}
+@keyframes rise{from{transform:translateY(20px);opacity:0}to{transform:none;opacity:1}}
+
+/* ── leaderboard / final ── */
+.board{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.board h2{font-family:Cinzel,serif;font-size:clamp(40px,4.5vw,72px);color:var(--gold2);margin-bottom:12px}
+.row{display:flex;align-items:center;gap:16px;width:min(900px,90%);background:#fff;color:var(--ink);border-radius:14px;padding:12px 22px;font-size:30px;font-weight:900;
+  box-shadow:0 5px 0 rgba(0,0,0,.25);animation:rise .5s ease both}
+.row .rk{width:44px;color:#9a6b12}.row .em{font-size:36px}.row .nm{flex:1}.row .gain{font-size:18px;color:var(--green)}
+.podium{display:flex;align-items:flex-end;gap:22px;margin-top:20px}
+.pod{display:flex;flex-direction:column;align-items:center;gap:8px;animation:rise .8s ease both}
+.pod .em{font-size:64px}.pod .nm{font-size:30px;font-weight:900}.pod .sc{font-size:20px;color:var(--gold2);font-weight:800}
+.pod .blk{width:200px;border-radius:12px 12px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:10px;font-family:Cinzel,serif;font-size:56px;font-weight:800;color:var(--ink)}
+.p1 .blk{height:230px;background:linear-gradient(var(--gold2),var(--gold))}.p2 .blk{height:160px;background:linear-gradient(#eef1f6,#b8c0cc)}.p3 .blk{height:110px;background:linear-gradient(#f1c79a,#c4824a)}
+.p1{order:2;animation-delay:1.6s}.p2{order:1;animation-delay:.8s}.p3{order:3;animation-delay:.1s}
+.verse{margin-top:26px;font-size:clamp(18px,1.7vw,26px);color:var(--sand);font-style:italic;text-align:center;max-width:900px}
+
+/* ── control bar ── */
+.bar-ctl{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;
+  background:rgba(4,10,26,.92);border-top:1px solid rgba(232,184,74,.3);z-index:10}
+.bar-ctl .l,.bar-ctl .r{display:flex;align-items:center;gap:10px}
+.btn{padding:10px 22px;border-radius:10px;font-weight:900;font-size:17px;letter-spacing:.04em}
+.btn.go{background:var(--gold);color:var(--ink)}.btn.go:hover{background:var(--gold2)}
+.btn.ghost{background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.2)}
+.btn.ghost:hover{color:#fff}
+.status{color:rgba(255,255,255,.55);font-weight:800;font-size:15px}
+.dot{width:10px;height:10px;border-radius:50%;background:#e2384d;display:inline-block;margin-right:6px}
+.dot.on{background:#22c55e}
+.confetti{position:fixed;top:-20px;width:12px;height:18px;z-index:5;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="bar-ctl">
+  <div class="l">
+    <span class="status"><span class="dot" id="dot"></span><span id="pcount">0 players</span></span>
+    <button class="btn ghost" id="soundBtn">🔇 Sound off</button>
+  </div>
+  <div class="l"><span class="status" id="prog"></span></div>
+  <div class="r">
+    <button class="btn ghost" onclick="window.open('/review','_blank')">Review all</button>
+    <button class="btn ghost" id="restartBtn" title="Reset scores and go back to the lobby">Restart</button>
+    <button class="btn ghost" id="backBtn">◀ Back</button>
+    <button class="btn go" id="nextBtn">Start ▶</button>
+  </div>
+</div>
+
+<script>
+const SHAPES = ["▲","◆","●","■"];
+let S = null, ws = null, tick = null, lastPhaseKey = "", soundOn = false, ac = null, lastCount = 0;
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+let skew = 0; // server clock - local clock
+
+/* ── sound (Web Audio, no files needed) ── */
+function tone(f, t0, dur, type = "triangle", vol = 0.18) {
+  if (!soundOn || !ac) return;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = type; o.frequency.value = f; o.connect(g); g.connect(ac.destination);
+  const t = ac.currentTime + t0;
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur); o.start(t); o.stop(t + dur + 0.05);
+}
+const sfx = {
+  join: () => { tone(660, 0, .12); tone(990, .08, .16); },
+  start: () => [392, 494, 587].forEach((f, i) => tone(f, i * .09, .3, "square", .08)),
+  tick: (n) => tone(n <= 3 ? 880 : 620, 0, .07, "square", .06),
+  reveal: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, i * .1, .4)),
+  gong: () => { tone(110, 0, 1.6, "sine", .3); tone(220, 0, 1.2, "triangle", .08); },
+  fanfare: () => [[523,0],[523,.15],[523,.3],[659,.45],[784,.75],[659,1.0],[784,1.2],[1047,1.45]].forEach(([f,t]) => tone(f, t, .35, "square", .09)),
+};
+$("soundBtn").onclick = () => {
+  soundOn = !soundOn;
+  if (soundOn && !ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+  if (ac && ac.state === "suspended") ac.resume();
+  $("soundBtn").textContent = soundOn ? "🔊 Sound on" : "🔇 Sound off";
+  if (soundOn) sfx.join();
+};
+
+/* ── connection ── */
+function connect() {
+  ws = new WebSocket((location.protocol === "https:" ? "wss://" : "ws://") + location.host + "/?host");
+  ws.onopen = () => $("dot").classList.add("on");
+  ws.onclose = () => { $("dot").classList.remove("on"); setTimeout(connect, 1500); };
+  ws.onmessage = (e) => { const m = JSON.parse(e.data); if (m.type === "state") { skew = m.now - Date.now(); render(m); } };
+}
+const cmd = (type, extra = {}) => ws && ws.readyState === 1 && ws.send(JSON.stringify({ type, ...extra }));
+$("nextBtn").onclick = () => cmd("next");
+$("backBtn").onclick = () => cmd("back");
+$("restartBtn").onclick = () => { if (confirm("Reset all scores and go back to the lobby?")) cmd("restart"); };
+document.addEventListener("keydown", (e) => {
+  if (e.key === " " || e.key === "ArrowRight" || e.key === "Enter") { e.preventDefault(); cmd("next"); }
+  if (e.key === "ArrowLeft") cmd("back");
+});
+
+/* ── art ── */
+function artHTML(src, cap) {
+  const inner = src === "dura" ? duraSVG()
+    : `<img src="${esc(src)}" alt="${esc(cap)}" referrerpolicy="no-referrer" onerror="this.outerHTML='<div class=ph>🖼️<br>${esc(cap).replace(/'/g,"&#39;")}</div>'">`;
+  return `<div class="art"><div class="frame">${inner}</div>${cap ? `<div class="cap">${esc(cap)}</div>` : ""}</div>`;
+}
+
+/* ── render ── */
+function render(st) {
+  const prevPlayers = S ? S.players.length : 0;
+  S = st;
+  const n = st.players.filter((p) => p.connected).length;
+  $("pcount").textContent = `${n} player${n === 1 ? "" : "s"}`;
+  $("backBtn").style.visibility = st.idx > 0 && st.phase !== "lobby" ? "visible" : "hidden";
+  const it = st.item;
+  const ask = it && (it.type === "q" || it.type === "poll");
+  $("nextBtn").textContent =
+    st.phase === "lobby" ? "Start ▶" :
+    st.phase === "item" && ask ? "Reveal ▶" :
+    st.phase === "final" ? "—" :
+    st.idx >= st.deckLength - 1 && st.phase !== "leaderboard" ? "Finish 🏆" : "Next ▶";
+  $("prog").textContent = st.phase === "lobby" || st.phase === "final" ? "" : `Slide ${st.idx + 1} / ${st.deckLength}` + (it && it.type === "q" ? `  ·  Question ${st.qNum} of ${st.qTotal}` : "");
+
+  const key = st.phase + ":" + st.idx;
+  const changed = key !== lastPhaseKey; lastPhaseKey = key;
+  if (st.phase === "lobby") { renderLobby(st); if (st.players.length > prevPlayers) sfx.join(); return; }
+  clearInterval(tick);
+  if (st.phase === "item" && it.type === "story") { if (changed) { renderStory(it); sfx.gong(); } return; }
+  if (st.phase === "item") { if (changed) { renderQuestion(st); sfx.start(); } else updateLive(st); startTimer(st); return; }
+  if (st.phase === "reveal") { if (changed) { renderReveal(st); sfx.reveal(); } return; }
+  if (st.phase === "leaderboard") { if (changed) renderBoard(st, false); return; }
+  if (st.phase === "final") { if (changed) { renderBoard(st, true); sfx.fanfare(); confetti(); } return; }
+}
+
+function renderLobby(st) {
+  const url = location.host;
+  if (!$("qr")) {
+    $("app").innerHTML = `
+    <div class="lobby">
+      <div>
+        <div class="eyebrow">Come, Follow Me · Daniel 1–7</div>
+        <h1>Dare to Be<br>a Daniel</h1>
+        <div class="sub">Babylon, a golden statue, a fiery furnace, a hand on the wall… and a den of lions.</div>
+        <div class="joinbox">
+          <div id="qr"><img src="/qr.svg" width="220" height="220" alt="QR code to join"></div>
+          <div>
+            <div class="joinlabel">Scan or go to</div>
+            <div class="joinurl">${esc(url)}</div>
+            <div class="count" id="lcount"></div>
+          </div>
+        </div>
+      </div>
+      <div class="rosterwrap"><div class="eyebrow">In the king's court</div><div class="roster" id="roster"></div></div>
+    </div>`;
+  }
+  const ps = st.players;
+  $("lcount").textContent = `${ps.filter(p=>p.connected).length} joined`;
+  $("roster").innerHTML = ps.length
+    ? ps.map((p) => `<div class="chip ${p.connected ? "" : "off"}"><span class="em">${esc(p.icon)}</span>${esc(p.name)}</div>`).join("")
+    : `<div class="empty">Waiting for players…</div>`;
+}
+
+function renderStory(it) {
+  $("app").innerHTML = `
+  <div class="story">
+    ${artHTML(it.art, it.caption)}
+    <div>
+      <div class="eyebrow">${esc(it.eyebrow)}</div>
+      <h2>${esc(it.title)}</h2>
+      <div class="body">${esc(it.body)}</div>
+      ${it.prompt ? `<div class="prompt"><b>Talk about it</b>${esc(it.prompt)}</div>` : ""}
+    </div>
+  </div>`;
+}
+
+function tilesHTML(it, st, reveal) {
+  const c = st.counts, tot = Math.max(1, c.reduce((a, b) => a + b, 0));
+  return `<div class="tiles">${it.answers.map((a, i) => {
+    let cls = "tile t" + i;
+    if (reveal && it.type === "q") cls += i === it.correct ? " win" : " dim";
+    const pct = reveal ? Math.round((c[i] / tot) * 100) : 0;
+    return `<div class="${cls}"><div class="bar" data-w="${pct}"></div><span class="sh">${SHAPES[i]}</span><span class="tx">${esc(a)}</span>${reveal ? `<span class="ct">${c[i]}</span>` : ""}</div>`;
+  }).join("")}</div>`;
+}
+
+function renderQuestion(st) {
+  const it = st.item;
+  $("app").innerHTML = `
+    <div class="qtop"><div class="qt">
+      <div class="eyebrow">${it.type === "poll" ? "Poll · " : `Question ${st.qNum} of ${st.qTotal} · `}${esc(it.eyebrow)}</div>
+      <div class="qtext">${esc(it.question)}</div>
+    </div></div>
+    <div class="qmid">
+      <div class="side"><div class="ring">
+        <svg width="132" height="132"><circle cx="66" cy="66" r="58" stroke="rgba(255,255,255,.15)" stroke-width="12" fill="none"/>
+        <circle id="arc" cx="66" cy="66" r="58" stroke="#e8b84a" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="364.4" stroke-dashoffset="0"/></svg>
+        <div class="n" id="secs"></div></div><div class="small">seconds</div></div>
+      ${artHTML(it.art, it.caption)}
+      <div class="side"><div class="big" id="ans">0</div><div class="small">answers</div></div>
+    </div>
+    ${tilesHTML(it, st, false)}`;
+  updateLive(st);
+}
+function updateLive(st) { if ($("ans")) $("ans").textContent = st.answered; }
+
+function startTimer(st) {
+  clearInterval(tick);
+  let lastShown = null;
+  const step = () => {
+    const left = Math.max(0, (st.deadline - (Date.now() + skew)) / 1000);
+    const s = Math.ceil(left);
+    if ($("secs")) $("secs").textContent = s;
+    if ($("arc")) $("arc").style.strokeDashoffset = 364.4 * (1 - left / st.seconds);
+    if (s !== lastShown) { if (s <= 5 && s > 0) sfx.tick(s); lastShown = s; }
+    if (left <= 0) clearInterval(tick);
+  };
+  step(); tick = setInterval(step, 100);
+}
+
+function renderReveal(st) {
+  const it = st.item;
+  const correctTxt = it.type === "q" ? `<b>${SHAPES[it.correct]} ${esc(it.answers[it.correct])}</b><br>` : "";
+  $("app").innerHTML = `
+    <div class="qtop"><div class="qt">
+      <div class="eyebrow">${it.type === "poll" ? "How we voted" : "Answer"} · ${esc(it.eyebrow)}</div>
+      <div class="qtext" style="font-size:clamp(24px,2.5vw,40px)">${esc(it.question)}</div>
+    </div></div>
+    <div class="qmid" style="grid-template-columns:.9fr 1.1fr">
+      ${artHTML(it.art, it.caption)}
+      <div class="explain">${correctTxt}${esc(it.explain)}</div>
+    </div>
+    ${tilesHTML(it, st, true)}`;
+  requestAnimationFrame(() => setTimeout(() => document.querySelectorAll(".bar").forEach((b) => (b.style.width = b.dataset.w + "%")), 60));
+}
+
+function renderBoard(st, final) {
+  const top = st.players.slice(0, final ? 3 : 5);
+  if (final) {
+    const pod = (p, k) => p ? `<div class="pod p${k}"><div class="em">${esc(p.icon)}</div><div class="nm">${esc(p.name)}</div><div class="sc">${p.score.toLocaleString()} pts</div><div class="blk">${k}</div></div>` : "";
+    $("app").innerHTML = `<div class="board">
+      <div class="eyebrow">Daniel 1–7 · Final standings</div>
+      <h2>"Ten Times Better"</h2>
+      <div class="podium">${pod(top[0],1)}${pod(top[1],2)}${pod(top[2],3)}</div>
+      <button class="btn go" style="margin-top:22px;font-size:20px" onclick="window.open('/review','_blank')">Review every question ▶</button>
+      <div class="verse">"Be strong and of a good courage… for the Lord thy God is with thee whithersoever thou goest." — Joshua 1:9</div>
+    </div>`;
+  } else {
+    $("app").innerHTML = `<div class="board"><h2>Leaderboard</h2>${top.map((p, i) =>
+      `<div class="row" style="animation-delay:${i * .12}s"><span class="rk">${i + 1}</span><span class="em">${esc(p.icon)}</span><span class="nm">${esc(p.name)}</span>${p.lastGain ? `<span class="gain">+${p.lastGain}</span>` : ""}<span>${p.score.toLocaleString()}</span></div>`
+    ).join("") || '<div class="empty">No players yet</div>'}</div>`;
+  }
+}
+
+function confetti() {
+  const cols = ["#e8b84a", "#f6d684", "#e2384d", "#1f6fe0", "#22a45d", "#fff"];
+  for (let i = 0; i < 140; i++) {
+    const d = document.createElement("div");
+    d.className = "confetti";
+    d.style.left = Math.random() * 100 + "vw";
+    d.style.background = cols[i % cols.length];
+    d.style.animationDuration = 2.5 + Math.random() * 2.5 + "s";
+    d.style.animationDelay = 1.6 + Math.random() * 1.5 + "s";
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 8000);
+  }
+}
+
+connect();
+</script>
+</body>
+</html>
